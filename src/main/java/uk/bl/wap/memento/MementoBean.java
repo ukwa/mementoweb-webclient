@@ -20,7 +20,7 @@ public class MementoBean {
 			return uri.getAuthority();
 		} catch (URISyntaxException e) {
 			System.err.println("Could not parse uri: "+m.getUrl());
-			return "(malformed URLs)";
+			return null;
 		}
 		
 	}

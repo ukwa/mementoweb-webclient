@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
 import dev.memento.Memento;
 import dev.memento.MementoClient;
@@ -20,7 +21,7 @@ import dev.memento.MementoList;
  *
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class MementoSearchBean implements Serializable {
 	
 	private static final long serialVersionUID = -8531283933701096508L;
@@ -49,6 +50,7 @@ public class MementoSearchBean implements Serializable {
 	 */
 	public void setUrl(String url) {
 		this.url = url;
+		this.doSearch();
 	}
 	
 	/**
@@ -124,8 +126,11 @@ public class MementoSearchBean implements Serializable {
     			MementoBean mb = new MementoBean(m);
     			this.mementos.add( mb );
     			// Count archival copies:
-    			int count = hostCount.containsKey(mb.getArchiveHost()) ? hostCount.get(mb.getArchiveHost()) : 0;
-    			hostCount.put(mb.getArchiveHost(), count + 1);
+    			String host = mb.getArchiveHost();
+    			if( host != null ) {
+    				int count = hostCount.containsKey(host) ? hostCount.get(host) : 0;
+    				hostCount.put(host, count + 1);
+    			}
     			this.totalCount++;
     		}
     	}

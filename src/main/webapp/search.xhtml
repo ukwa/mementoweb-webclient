@@ -5,23 +5,32 @@
 
 	<f:metadata>
         <f:viewParam name="url" value="#{mementoSearchBean.url}" />
-        <f:event type="preRenderView" listener="#{mementoSearchBean.doSearch}" />
     </f:metadata>
     <h:head>
         <title>Memento Search</title>
     </h:head>
     <h:body>
+<p:ajaxStatus style="width:16px;height:16px;" id="ajaxStatusPanel">  
+    <f:facet name="start">  
+        <h:graphicImage value="../design/ajaxloading.gif" />  
+    </f:facet>  
+      
+    <f:facet name="complete">  
+        <h:outputText value="" />  
+    </f:facet>  
+</p:ajaxStatus>      
+        
       <h:form id="searchForm">
         <h:messages />
         <h:inputText value="#{mementoSearchBean.url}"></h:inputText>
-        <h:commandButton value="Search" action="#{mementoSearchBean.submit}" />
-      </h:form>
+        <p:commandButton value="Search" action="#{mementoSearchBean.submit}" />
       
       <p>
       This URL (<h:outputLink value="#{mementoSearchBean.url}">#{mementoSearchBean.url}</h:outputLink>) has been archived #{mementoSearchBean.totalCount} times by #{mementoSearchBean.numHosts} organisation(s) between #{mementoSearchBean.firstMemento.dateTime.year} and #{mementoSearchBean.lastMemento.dateTime.year}.
       </p>
-    
-    <p:dataTable id="summaryTable" var="h" value="#{mementoSearchBean.hosts}">
+          
+    <p:dataTable id="summaryTable" var="h" value="#{mementoSearchBean.hosts}" 
+    		sortBy="#{mementoSearchBean.hostCounts[h]}" sortOrder="descending">
         <f:facet name="header">  
             Hosts  
         </f:facet>  
@@ -42,10 +51,10 @@
         
     </p:dataTable>
     
-	<p:dataTable id="resultsTable" var="m" value="#{mementoSearchBean.mementos}" sortBy="#{m.dateTime}" paginator="true" rows="25"  
+	<p:dataTable id="resultsTable" var="m" value="#{mementoSearchBean.mementos}" sortBy="#{m.archiveHost}" sortOrder="descending" paginator="true" rows="25"  
                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                  rowsPerPageTemplate="10,25,50,100">  
-        <f:facet name="header">  
+        <f:facet name="header">
             Mementos  
         </f:facet>  
   
@@ -72,5 +81,7 @@
   
     </p:dataTable>
     
+      </h:form>
+      
     </h:body>
 </html>
