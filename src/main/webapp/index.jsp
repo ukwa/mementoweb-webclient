@@ -1,0 +1,1 @@
+<jsp:forward page="search.jsf"></jsp:forward>

@@ -1,0 +1,76 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<f:metadata>
+        <f:viewParam name="url" value="#{mementoSearchBean.url}" />
+        <f:event type="preRenderView" listener="#{mementoSearchBean.doSearch}" />
+    </f:metadata>
+    <h:head>
+        <title>Memento Search</title>
+    </h:head>
+    <h:body>
+      <h:form id="searchForm">
+        <h:messages />
+        <h:inputText value="#{mementoSearchBean.url}"></h:inputText>
+        <h:commandButton value="Search" action="#{mementoSearchBean.submit}" />
+      </h:form>
+      
+      <p>
+      This URL (<h:outputLink value="#{mementoSearchBean.url}">#{mementoSearchBean.url}</h:outputLink>) has been archived #{mementoSearchBean.totalCount} times by #{mementoSearchBean.numHosts} organisation(s) between #{mementoSearchBean.firstMemento.dateTime.year} and #{mementoSearchBean.lastMemento.dateTime.year}.
+      </p>
+    
+    <p:dataTable id="summaryTable" var="h" value="#{mementoSearchBean.hosts}">
+        <f:facet name="header">  
+            Hosts  
+        </f:facet>  
+    
+        <p:column sortBy="#{h}">  
+            <f:facet name="header">  
+                <h:outputText value="Host Archive" />  
+            </f:facet>
+            <h:outputText value="#{h}" />
+        </p:column>
+        
+        <p:column sortBy="#{mementoSearchBean.hostCounts[h]}">  
+            <f:facet name="header">  
+                <h:outputText value="Archived Versions" />  
+            </f:facet>
+            <h:outputText value="#{mementoSearchBean.hostCounts[h]}" />
+        </p:column>
+        
+    </p:dataTable>
+    
+	<p:dataTable id="resultsTable" var="m" value="#{mementoSearchBean.mementos}" sortBy="#{m.dateTime}" paginator="true" rows="25"  
+                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                 rowsPerPageTemplate="10,25,50,100">  
+        <f:facet name="header">  
+            Mementos  
+        </f:facet>  
+  
+        <p:column sortBy="#{m.dateTime}">  
+            <f:facet name="header">  
+                <h:outputText value="Date" />  
+            </f:facet>
+            <h:outputText value="#{m.dateTime}" />
+        </p:column>
+        
+        <p:column sortBy="#{m.archiveHost}">  
+            <f:facet name="header">  
+                <h:outputText value="Host Archive" />  
+            </f:facet>
+            <h:outputText value="#{m.archiveHost}" />
+        </p:column>
+  
+        <p:column sortBy="#{m.url}">  
+            <f:facet name="header">
+                <h:outputText value="URL" />
+            </f:facet>  
+            <h:outputLink value="#{m.url}">Visit</h:outputLink>
+        </p:column>  
+  
+    </p:dataTable>
+    
+    </h:body>
+</html>
