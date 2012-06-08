@@ -20,6 +20,11 @@
 	<version>3.3</version>
 </dependency>
 <dependency>
+	<groupId>org.primefaces</groupId>
+	<artifactId>primefaces-mobile</artifactId>
+	<version>0.9.2</version>
+</dependency>
+<dependency>
       <groupId>com.sun.faces</groupId>
       <artifactId>jsf-api</artifactId>
       <version>2.0.0-b13</version>

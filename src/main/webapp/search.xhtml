@@ -1,7 +1,8 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
+<f:view xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+    contentType="text/html">
 
 	<f:metadata>
         <f:viewParam name="url" value="#{mementoSearchBean.url}" />
@@ -12,7 +13,7 @@
     <h:body>
 <p:ajaxStatus style="width:16px;height:16px;" id="ajaxStatusPanel">  
     <f:facet name="start">  
-        <h:graphicImage value="../design/ajaxloading.gif" />  
+        <h:graphicImage value="images/loading_favicon.png" />  
     </f:facet>  
       
     <f:facet name="complete">  
@@ -39,7 +40,7 @@
             <f:facet name="header">  
                 <h:outputText value="Host Archive" />  
             </f:facet>
-            <h:outputText value="#{h}" />
+            <h:graphicImage value="images/favicons/#{h}/favicon.ico"/> <h:outputLink value="http://#{h}">#{h}</h:outputLink>
         </p:column>
         
         <p:column sortBy="#{mementoSearchBean.hostCounts[h]}">  
@@ -51,7 +52,7 @@
         
     </p:dataTable>
     
-	<p:dataTable id="resultsTable" var="m" value="#{mementoSearchBean.mementos}" sortBy="#{m.archiveHost}" sortOrder="descending" paginator="true" rows="25"  
+	<p:dataTable id="resultsTable" var="m" value="#{mementoSearchBean.mementos}" sortBy="#{m.dateTime}" paginator="true" rows="10"  
                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                  rowsPerPageTemplate="10,25,50,100">  
         <f:facet name="header">
@@ -84,4 +85,4 @@
       </h:form>
       
     </h:body>
-</html>
+</f:view>
