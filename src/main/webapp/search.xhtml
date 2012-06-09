@@ -41,6 +41,7 @@
       
       <h:panelGrid columns="1" style="margin: 0 auto;" rendered="#{mementoSearchBean.urlSet}">
       <h:panelGroup>
+      <h2>Summary</h2>
       <p>
         This URL (<h:outputLink value="#{mementoSearchBean.url}">#{mementoSearchBean.url}</h:outputLink>) has been archived #{mementoSearchBean.totalCount} times by #{mementoSearchBean.numHosts} organisation(s) between #{mementoSearchBean.firstMemento.dateTime.year} and #{mementoSearchBean.lastMemento.dateTime.year}.
       </p>
@@ -58,7 +59,7 @@
             <f:facet name="header">  
                 <h:outputText value="Host Archive" />  
             </f:facet>
-            <h:graphicImage value="images/favicons/#{h}/favicon.ico"/> <h:outputLink value="http://#{h}">#{h}</h:outputLink>
+            <h:graphicImage value="images/favicons/#{h}/favicon.ico"/>&#160;<h:outputLink value="http://#{h}">#{h}</h:outputLink>
         </p:column>
         
         <p:column sortBy="#{mementoSearchBean.hostCounts[h]}">  
@@ -76,9 +77,6 @@
 	<p:dataTable id="resultsTable" var="m" value="#{mementoSearchBean.mementos}" sortBy="#{m.dateTime}" paginator="true" rows="10"  
                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                  rowsPerPageTemplate="10,25,50,100">  
-        <f:facet name="header">
-            Mementos  
-        </f:facet>  
   
         <p:column sortBy="#{m.dateTime}">  
             <f:facet name="header">  
@@ -113,7 +111,7 @@
 
     <h:panelGroup style="text-align: center;">
      <p>
-      Bookmarklet:&#160;<h:outputLink value="javascript:void(location.href='http://localhost:8080/mementoweb-webclient/search.jsf?url='+escape(location.href))">(m)</h:outputLink>
+      Bookmarklet:&#160;<h:outputLink value="javascript:void(location.href='#{mementoSearchBean.absoluteUrl}/search.jsf?url='+escape(location.href))">(m)</h:outputLink>
      </p>
      <p>
       For more information on Memento, see&#160;<h:outputLink value="http://www.mementoweb.org/">www.mementoweb.org</h:outputLink>.

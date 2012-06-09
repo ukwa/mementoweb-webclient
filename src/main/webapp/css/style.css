@@ -2,8 +2,11 @@ body {
     margin: 0px;
     padding: 0;
     font-size: 12px;
-    color: #616161;
+    color: #414141;
+}
+.ui-widget table {
+	font-size: 0.95em;
 }
 .ui-widget, .ui-widget .ui-widget {
-font-size: 80% !important;
+  font-size: 80% !important;
 }

@@ -10,6 +10,8 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 import dev.memento.Memento;
 import dev.memento.MementoClient;
@@ -153,5 +155,17 @@ public class MementoSearchBean implements Serializable {
 		//return "success?faces-redirect=true&IncludeViewParams=true";
 		// This works fine.
 		return "/search.xhtml?faces-redirect=true&url=" + this.getUrl();
+	}
+	
+	/**
+	 * @return
+	 */
+	public String getAbsoluteUrl() {
+		final ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
+		String url = ectx.getRequestScheme()
+		  + "://" + ectx.getRequestServerName()
+		  + ":" + ectx.getRequestServerPort()
+		  + "" + ectx.getRequestContextPath();
+		return url;
 	}
 }

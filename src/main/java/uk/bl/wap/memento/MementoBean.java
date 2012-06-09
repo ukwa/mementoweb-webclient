@@ -30,6 +30,7 @@ public class MementoBean {
 	}
 	
 	public SimpleDateTime getDateTime() {
+		if( m == null ) return null;
 		return m.getDateTime();
 	}
 	
