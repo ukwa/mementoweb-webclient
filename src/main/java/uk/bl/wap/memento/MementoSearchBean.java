@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 
 import dev.memento.Memento;
@@ -26,7 +25,7 @@ public class MementoSearchBean implements Serializable {
 	
 	private static final long serialVersionUID = -8531283933701096508L;
 	
-	private String url = "http://www.bl.uk";
+	private String url = "http://";
 
 	private ArrayList<MementoBean> mementos;
 	
@@ -51,6 +50,13 @@ public class MementoSearchBean implements Serializable {
 	public void setUrl(String url) {
 		this.url = url;
 		this.doSearch();
+	}
+	
+	public boolean isUrlSet() {
+		if( this.url == null ) return false;
+		if( "".equals(this.url)) return false;
+		if( "http://".equals(this.url)) return false;
+		return true;
 	}
 	
 	/**
@@ -85,6 +91,7 @@ public class MementoSearchBean implements Serializable {
 	 * @return
 	 */
 	public int getNumHosts() {
+		if( this.getHosts() == null ) return 0;
 		return this.getHosts().size();
 	}
 	
@@ -120,7 +127,7 @@ public class MementoSearchBean implements Serializable {
     	this.hostCount = new HashMap<String,Integer>();
     	this.totalCount = 0;
     	if( mc.getMementos() != null ) {
-    		mc.getMementos().displayAll();
+    		//mc.getMementos().displayAll();
     		this.mementoList = mc.getMementos();
     		for( Memento m : this.mementoList ) {
     			MementoBean mb = new MementoBean(m);

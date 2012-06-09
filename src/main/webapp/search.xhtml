@@ -9,32 +9,50 @@
     </f:metadata>
     <h:head>
         <title>Memento Search</title>
+        <link type="text/css" rel="stylesheet" href="css/style.css" />
     </h:head>
     <h:body>
-<p:ajaxStatus style="width:16px;height:16px;" id="ajaxStatusPanel">  
+    
+<p:ajaxStatus style="float:right;" id="ajaxStatusPanel">  
     <f:facet name="start">  
-        <h:graphicImage value="images/loading_favicon.png" />  
+        <h:graphicImage value="images/busy.gif" />
     </f:facet>  
       
-    <f:facet name="complete">  
-        <h:outputText value="" />  
+    <f:facet name="complete">
+        <h:outputText value="" />
     </f:facet>  
 </p:ajaxStatus>      
         
       <h:form id="searchForm">
+       <h:panelGrid columns="1" style="margin: 0 auto;">
+        <h1>Memento: Time Travel For The Web</h1>
         <h:messages />
-        <h:inputText value="#{mementoSearchBean.url}"></h:inputText>
-        <p:commandButton value="Search" action="#{mementoSearchBean.submit}" />
+        <h:panelGrid columns="2" border="0">
+          <h:graphicImage value="images/mementologo.png" />
+          <h:panelGrid columns="1" border="0" style="text-align: center;">        
+            <h:panelGroup>
+            <h:outputLabel value="URL" for="url" rendered="false"/>
+            <h:inputText id="url" value="#{mementoSearchBean.url}" size="80"></h:inputText>
+            </h:panelGroup>
+            <p:commandButton value="Engage The TimeGate..." action="#{mementoSearchBean.submit}" />
+          </h:panelGrid>
+        </h:panelGrid>
+       </h:panelGrid>
       
+      <h:panelGrid columns="1" style="margin: 0 auto;" rendered="#{mementoSearchBean.urlSet}">
+      <h:panelGroup>
       <p>
-      This URL (<h:outputLink value="#{mementoSearchBean.url}">#{mementoSearchBean.url}</h:outputLink>) has been archived #{mementoSearchBean.totalCount} times by #{mementoSearchBean.numHosts} organisation(s) between #{mementoSearchBean.firstMemento.dateTime.year} and #{mementoSearchBean.lastMemento.dateTime.year}.
+        This URL (<h:outputLink value="#{mementoSearchBean.url}">#{mementoSearchBean.url}</h:outputLink>) has been archived #{mementoSearchBean.totalCount} times by #{mementoSearchBean.numHosts} organisation(s) between #{mementoSearchBean.firstMemento.dateTime.year} and #{mementoSearchBean.lastMemento.dateTime.year}.
       </p>
+      <p>
+        <h:outputLink value="http://webcitation.org/archive?url=#{mementoSearchBean.url}">Click here to use WebCite® to archive #{mementoSearchBean.url}</h:outputLink>.
+      </p>
+      </h:panelGroup>
           
+      <h:panelGroup>
+      <h2>Host Archives</h2>
     <p:dataTable id="summaryTable" var="h" value="#{mementoSearchBean.hosts}" 
     		sortBy="#{mementoSearchBean.hostCounts[h]}" sortOrder="descending">
-        <f:facet name="header">  
-            Hosts  
-        </f:facet>  
     
         <p:column sortBy="#{h}">  
             <f:facet name="header">  
@@ -51,7 +69,10 @@
         </p:column>
         
     </p:dataTable>
+    </h:panelGroup>
     
+      <h:panelGroup>
+      <h2>Archived Instances</h2>
 	<p:dataTable id="resultsTable" var="m" value="#{mementoSearchBean.mementos}" sortBy="#{m.dateTime}" paginator="true" rows="10"  
                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                  rowsPerPageTemplate="10,25,50,100">  
@@ -82,7 +103,31 @@
   
     </p:dataTable>
     
+    </h:panelGroup>
+    
+    </h:panelGrid>
+
       </h:form>
+      
+    <h:panelGrid columns="1" style="margin: 0 auto;">
+
+    <h:panelGroup style="text-align: center;">
+     <p>
+      Bookmarklet:&#160;<h:outputLink value="javascript:void(location.href='http://localhost:8080/mementoweb-webclient/search.jsf?url='+escape(location.href))">(m)</h:outputLink>
+     </p>
+     <p>
+      For more information on Memento, see&#160;<h:outputLink value="http://www.mementoweb.org/">www.mementoweb.org</h:outputLink>.
+     </p>
+     <p>
+     This web interface uses the Memento aggregate TimeGate hosted by&#160;<h:outputLink value="http://lanl.gov">lanl.gov</h:outputLink>.<br/>
+     This interface was created by the&#160;<h:outputLink value="http://www.webarchive.org.uk/">UK Web Archive</h:outputLink>.<br/>
+     The source code is&#160;<h:outputLink value="https://github.com/ukwa/mementoweb-webclient">hosted on GitHub</h:outputLink>.
+     </p>
+    </h:panelGroup>
+    
+    </h:panelGrid>
+    
+      
       
     </h:body>
 </f:view>
