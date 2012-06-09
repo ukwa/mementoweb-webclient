@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
@@ -128,6 +129,13 @@ public class MementoSearchBean implements Serializable {
     	this.mementos = new ArrayList<MementoBean>();
     	this.hostCount = new HashMap<String,Integer>();
     	this.totalCount = 0;
+    	// Look for error:
+    	if( mc.getErrorMessage() != null ) {
+    		FacesMessage fm = new FacesMessage(mc.getErrorMessage());
+            FacesContext.getCurrentInstance().addMessage("Memento Error", fm);
+    		return;
+    	}
+    	// Get results:
     	if( mc.getMementos() != null ) {
     		//mc.getMementos().displayAll();
     		this.mementoList = mc.getMementos();
