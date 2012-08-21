@@ -28,3 +28,11 @@ Note that
 curl  http://api.wayback.archive.org/list/timemap/link/http://en.wikipedia.org/wiki/Wikipedia:Wikipedia_is_an_encyclopedia
 
 Works fine, so I wonder if the error on the BL proxy is throwing the whole aggregation off?
+
+
+Running during development
+--------------------------
+
+When developing, this is a handy way to run the code while tweaking the files:
+
+    mvn clean war:inplace tomcat6:run
