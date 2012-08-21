@@ -9,9 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import dev.memento.Memento;
@@ -22,8 +19,6 @@ import dev.memento.MementoList;
  * @author Andrew Jackson <Andrew.Jackson@bl.uk>
  *
  */
-@ManagedBean
-@ViewScoped
 public class MementoSearchBean implements Serializable {
 	
 	private static final long serialVersionUID = -8531283933701096508L;
@@ -53,13 +48,6 @@ public class MementoSearchBean implements Serializable {
 	public void setUrl(String url) {
 		this.url = url;
 		this.doSearch();
-	}
-	
-	public boolean isUrlSet() {
-		if( this.url == null ) return false;
-		if( "".equals(this.url)) return false;
-		if( "http://".equals(this.url)) return false;
-		return true;
 	}
 	
 	/**
@@ -120,7 +108,7 @@ public class MementoSearchBean implements Serializable {
 
 	/**
 	 */
-	public void doSearch() {
+	private void doSearch() {
 		System.out.println("Doing search...");
 		// Query:
     	MementoClient mc = new MementoClient();
@@ -154,26 +142,4 @@ public class MementoSearchBean implements Serializable {
     	this.hosts = new ArrayList<String>(hostCount.keySet());
     }
 	
-	/**
-	 * @return
-	 */
-	public String submit() {
-		System.out.println("Got: "+this.getUrl());
-		// This should work, but doesn't work for me.
-		//return "success?faces-redirect=true&IncludeViewParams=true";
-		// This works fine.
-		return "/search.xhtml?faces-redirect=true&url=" + this.getUrl();
-	}
-	
-	/**
-	 * @return
-	 */
-	public String getAbsoluteUrl() {
-		final ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
-		String url = ectx.getRequestScheme()
-		  + "://" + ectx.getRequestServerName()
-		  + ":" + ectx.getRequestServerPort()
-		  + "" + ectx.getRequestContextPath();
-		return url;
-	}
 }
