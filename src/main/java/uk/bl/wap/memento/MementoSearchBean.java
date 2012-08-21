@@ -8,9 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-
 import dev.memento.Memento;
 import dev.memento.MementoClient;
 import dev.memento.MementoList;
@@ -34,6 +31,8 @@ public class MementoSearchBean implements Serializable {
 	private int totalCount;
 
 	private MementoList mementoList;
+
+	private String errorMessage;
 	
 	/**
 	 * @return the url
@@ -118,9 +117,8 @@ public class MementoSearchBean implements Serializable {
     	this.hostCount = new HashMap<String,Integer>();
     	this.totalCount = 0;
     	// Look for error:
-    	if( mc.getErrorMessage() != null ) {
-    		FacesMessage fm = new FacesMessage(mc.getErrorMessage());
-            FacesContext.getCurrentInstance().addMessage("Memento Error", fm);
+    	this.errorMessage = mc.getErrorMessage();    	
+    	if( this.errorMessage != null ) {
     		return;
     	}
     	// Get results:
@@ -141,5 +139,12 @@ public class MementoSearchBean implements Serializable {
     	}
     	this.hosts = new ArrayList<String>(hostCount.keySet());
     }
-	
+
+	/**
+	 * @return the errorMessage
+	 */
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
 }

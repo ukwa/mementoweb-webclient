@@ -22,7 +22,9 @@
     <input type="submit" value="Engage The TimeGate"/>
     </form>
     
+	<p>    
     <a href="${pageContext.request.contextPath}/timegate/query?url=<%= url %>">JSON</a>
+    </p>
    
    <% if( msb != null ) { %>
    <ul>
@@ -31,8 +33,13 @@
    <% } %>
    </ul> 
    <% } %>
+   
+   
     
-    
+	<p>
+	   <a href="http://webcitation.org/archive?url=<%= url %>">Click here to use WebCite® to archive <%= url %></a>.
+   
+	</p>    
      <p>
       Bookmarklet:&#160;<a href="javascript:void(location.href='<%= jspUrl %>?url='+escape(location.href))">[b]</a>
      </p>

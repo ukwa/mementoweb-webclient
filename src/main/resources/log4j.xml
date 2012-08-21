@@ -11,7 +11,7 @@
 
   <!--  Reduce logging from Memento  -->
   <logger name="dev.memento">
-    <level value="debug"/> 
+    <level value="info"/> 
   </logger>
 	
   <!--  Increase logging from this code  -->
