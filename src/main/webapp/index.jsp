@@ -17,7 +17,7 @@
 </head>
 <body>
     <img src="${pageContext.request.contextPath}/images/mementologo.png" />
-    <form method="GET" action="${pageContext.request.contextPath}/find.jsp">
+    <form method="GET" action="<%= jspUrl %>">
     <input type="text" name="url" value="<%= url %>"/>
     <input type="submit" value="Engage The TimeGate"/>
     </form>
@@ -34,7 +34,7 @@
     
     
      <p>
-      Bookmarklet:&#160;<a href="javascript:void(location.href='<%= jspUrl %>?url='+escape(location.href))">(m)</a>
+      Bookmarklet:&#160;<a href="javascript:void(location.href='<%= jspUrl %>?url='+escape(location.href))">[b]</a>
      </p>
      <p>
       For more information on Memento, see&#160;<a href="http://www.mementoweb.org/">www.mementoweb.org</a>.
