@@ -43,7 +43,10 @@
       <h:panelGroup>
       <h2>Summary</h2>
       <p>
-        This URL (<h:outputLink value="#{mementoBackingBean.url}">#{mementoBackingBean.url}</h:outputLink>) has been archived #{mementoBackingBean.totalCount} times by #{mementoBackingBean.numHosts} organisation(s) between #{mementoBackingBean.firstMemento.dateTime.year} and #{mementoBackingBean.lastMemento.dateTime.year}. Also available as <h:outputLink value="#{mementoBackingBean.absoluteUrl}/timegate/json?url=#{mementoBackingBean.url}">JSON</h:outputLink>.
+        This URL (<h:outputLink value="#{mementoBackingBean.url}">#{mementoBackingBean.url}</h:outputLink>) has been archived #{mementoBackingBean.totalCount} times by #{mementoBackingBean.numHosts} organisation(s) between #{mementoBackingBean.firstMemento.dateTime.year} and #{mementoBackingBean.lastMemento.dateTime.year}.
+      </p>
+      <p>
+        Also available as&#160;<h:outputLink value="#{mementoBackingBean.absoluteUrl}/timegate/json?url=#{mementoBackingBean.url}">JSON</h:outputLink>.
       </p>
       <p>
         <h:outputLink value="http://webcitation.org/archive?url=#{mementoBackingBean.url}">Click here to use WebCite&#153; to archive #{mementoBackingBean.url}</h:outputLink>.
