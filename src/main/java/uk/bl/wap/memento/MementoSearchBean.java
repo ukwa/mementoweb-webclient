@@ -20,6 +20,8 @@ public class MementoSearchBean implements Serializable {
 	
 	private static final long serialVersionUID = -8531283933701096508L;
 	
+	private MementoClient mc = new MementoClient();
+	
 	private String url = "http://";
 
 	private ArrayList<MementoBean> mementos;
@@ -31,8 +33,6 @@ public class MementoSearchBean implements Serializable {
 	private int totalCount;
 
 	private MementoList mementoList;
-
-	private String errorMessage;
 	
 	/**
 	 * @return the url
@@ -109,15 +109,13 @@ public class MementoSearchBean implements Serializable {
 	 */
 	private void doSearch() {
 		// Query:
-    	MementoClient mc = new MementoClient();
     	mc.setTargetURI(this.getUrl());
     	// Get results:
     	this.mementos = new ArrayList<MementoBean>();
     	this.hostCount = new HashMap<String,Integer>();
     	this.totalCount = 0;
     	// Look for error:
-    	this.errorMessage = mc.getErrorMessage();    	
-    	if( this.errorMessage != null ) {
+    	if( mc.getErrorMessage() != null ) {
     		return;
     	}
     	// Get results:
@@ -143,7 +141,7 @@ public class MementoSearchBean implements Serializable {
 	 * @return the errorMessage
 	 */
 	public String getErrorMessage() {
-		return errorMessage;
+		return mc.getErrorMessage();
 	}
 
 }

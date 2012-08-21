@@ -1,0 +1,133 @@
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+    contentType="text/html">
+
+	<f:metadata>
+        <f:viewParam name="url" value="#{mementoBackingBean.url}" />
+    </f:metadata>
+    <h:head>
+        <title>Memento Search</title>
+        <link type="text/css" rel="stylesheet" href="css/style.css" />
+    </h:head>
+    <h:body>
+    
+<p:ajaxStatus style="float:right;" id="ajaxStatusPanel">  
+    <f:facet name="start">  
+        <h:graphicImage value="images/busy.gif" />
+    </f:facet>  
+      
+    <f:facet name="complete">
+        <h:outputText value="" />
+    </f:facet>  
+</p:ajaxStatus>      
+        
+      <h:form id="searchForm">
+       <h:panelGrid columns="1" style="margin: 0 auto;">
+        <h1>Memento: Time Travel For The Web</h1>
+        <h:messages />
+        <h:panelGrid columns="2" border="0">
+          <h:graphicImage value="images/mementologo.png" />
+          <h:panelGrid columns="1" border="0" style="text-align: center;">        
+            <h:panelGroup>
+            <h:outputLabel value="URL" for="url" rendered="false"/>
+            <h:inputText id="url" value="#{mementoBackingBean.url}" size="80"></h:inputText>
+            </h:panelGroup>
+            <p:commandButton value="Engage The TimeGate..." action="#{mementoBackingBean.submit}" />
+          </h:panelGrid>
+        </h:panelGrid>
+       </h:panelGrid>
+      
+      <h:panelGrid columns="1" style="margin: 0 auto;" rendered="#{mementoBackingBean.urlSet}">
+      <h:panelGroup>
+      <h2>Summary</h2>
+      <p>
+        This URL (<h:outputLink value="#{mementoBackingBean.url}">#{mementoBackingBean.url}</h:outputLink>) has been archived #{mementoBackingBean.totalCount} times by #{mementoBackingBean.numHosts} organisation(s) between #{mementoBackingBean.firstMemento.dateTime.year} and #{mementoBackingBean.lastMemento.dateTime.year}. Also available as <h:outputLink value="#{mementoBackingBean.absoluteUrl}/timegate/json?url=#{mementoBackingBean.url}">JSON</h:outputLink>.
+      </p>
+      <p>
+        <h:outputLink value="http://webcitation.org/archive?url=#{mementoBackingBean.url}">Click here to use WebCite&#153; to archive #{mementoBackingBean.url}</h:outputLink>.
+      </p>
+      </h:panelGroup>
+          
+      <h:panelGroup>
+      <h2>Host Archives</h2>
+    <p:dataTable id="summaryTable" var="h" value="#{mementoBackingBean.hosts}" 
+    		sortBy="#{mementoBackingBean.hostCounts[h]}" sortOrder="descending">
+    
+        <p:column sortBy="#{h}">  
+            <f:facet name="header">  
+                <h:outputText value="Host Archive" />  
+            </f:facet>
+            <h:graphicImage value="images/favicons/#{h}/favicon.ico"/>&#160;<h:outputLink value="http://#{h}">#{h}</h:outputLink>
+        </p:column>
+        
+        <p:column sortBy="#{mementoBackingBean.hostCounts[h]}">  
+            <f:facet name="header">  
+                <h:outputText value="Archived Versions" />  
+            </f:facet>
+            <h:outputText value="#{mementoBackingBean.hostCounts[h]}" />
+        </p:column>
+        
+    </p:dataTable>
+    </h:panelGroup>
+    
+      <h:panelGroup>
+      <h2>Archived Instances</h2>
+	<p:dataTable id="resultsTable" var="m" value="#{mementoBackingBean.mementos}" 
+				sortBy="#{m.dateTime}" sortOrder="descending" 
+				paginator="true" rows="10"  
+                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                rowsPerPageTemplate="10,25,50,100">  
+  
+        <p:column sortBy="#{m.dateTime}">  
+            <f:facet name="header">  
+                <h:outputText value="Date" />  
+            </f:facet>
+            <h:outputText value="#{m.dateTime}" />
+        </p:column>
+        
+        <p:column sortBy="#{m.archiveHost}">  
+            <f:facet name="header">  
+                <h:outputText value="Host Archive" />  
+            </f:facet>
+            <h:outputText value="#{m.archiveHost}" />
+        </p:column>
+  
+        <p:column sortBy="#{m.url}">  
+            <f:facet name="header">
+                <h:outputText value="URL" />
+            </f:facet>  
+            <h:outputLink value="#{m.url}">Visit</h:outputLink>
+        </p:column>  
+  
+    </p:dataTable>
+    
+    </h:panelGroup>
+    
+    </h:panelGrid>
+
+      </h:form>
+      
+    <h:panelGrid columns="1" style="margin: 0 auto;">
+
+    <h:panelGroup style="text-align: center;">
+     <p>
+      Bookmarklet:&#160;<h:outputLink value="javascript:void(location.href='#{mementoBackingBean.absoluteUrl}/search.jsf?url='+escape(location.href))">(m)</h:outputLink>
+     </p>
+     <p>
+      For more information on Memento, see&#160;<h:outputLink value="http://www.mementoweb.org/">www.mementoweb.org</h:outputLink>.
+     </p>
+     <p>
+     This web interface uses the Memento aggregate TimeGate hosted by&#160;<h:outputLink value="http://lanl.gov">lanl.gov</h:outputLink>.<br/>
+     This interface was created by the&#160;<h:outputLink value="http://www.webarchive.org.uk/">UK Web Archive</h:outputLink>.<br/>
+     The source code is&#160;<h:outputLink value="https://github.com/ukwa/mementoweb-webclient">hosted on GitHub</h:outputLink>.
+     </p>
+    </h:panelGroup>
+    
+    </h:panelGrid>
+    
+      
+      
+    </h:body>
+</f:view>

@@ -18,7 +18,7 @@ import javax.ws.rs.core.Response;
 public class TimeGateService {
 	 
 		@GET
-		@Path("query")
+		@Path("json")
 		@Produces(MediaType.APPLICATION_JSON)
 		public Response getMementos(
 			@QueryParam("url") String url) {
