@@ -108,7 +108,6 @@ public class MementoSearchBean implements Serializable {
 	/**
 	 */
 	private void doSearch() {
-		System.out.println("Doing search...");
 		// Query:
     	MementoClient mc = new MementoClient();
     	mc.setTargetURI(this.getUrl());
