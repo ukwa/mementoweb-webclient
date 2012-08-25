@@ -8,25 +8,57 @@
         <f:viewParam name="url" value="#{mementoBackingBean.url}" />
     </f:metadata>
     <h:head>
-        <title>Memento Search</title>
-        <link type="text/css" rel="stylesheet" href="css/style.css" />
+        <title>Memento Search - #{mementoBackingBean.url}</title>
+		<f:facet name="first">
+	      <h:outputStylesheet library="bootstrap" name="css/bootstrap.css" />
+	      <h:outputStylesheet library="css" name="style.css" />
+		</f:facet>
+		<link href="resources/nvd3/src/nv.d3.css" rel="stylesheet" type="text/css"/>
+<script src="resources/nvd3/lib/d3.v2.min.js"></script>
+<script src="resources/nvd3/nv.d3.min.js"></script>
+		<f:facet name="last">
+		  <h:outputScript library="bootstrap" name="js/bootstrap.min.js"/>
+		</f:facet>
     </h:head>
     <h:body>
     
-<p:ajaxStatus style="float:right;" id="ajaxStatusPanel">  
-    <f:facet name="start">  
-        <h:graphicImage value="images/busy.gif" />
-    </f:facet>  
+     <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#{mementoBackingBean.absoluteUrl}/"><img src="#{mementoBackingBean.absoluteUrl}/images/ukwa-icon-nobg-16.png"/>UK Web Archive</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="#{mementoBackingBean.absoluteUrl}">Home</a></li>
+              <li><a href="https://github.com/ukwa/opendata">GitHub</a></li>
+              <li><a href="http://www.webarchive.org.uk/">UKWA</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    
+    <div class="container">
+
+      <!-- Example row of columns -->
+      <div class="row">
+    
+	<p:ajaxStatus style="float:right;" id="ajaxStatusPanel">  
+    	<f:facet name="start">  
+        	<h:graphicImage value="images/busy.gif" />
+	    </f:facet>
       
-    <f:facet name="complete">
-        <h:outputText value="" />
-    </f:facet>  
-</p:ajaxStatus>      
+	    <f:facet name="complete">
+    	    <h:outputText value="" />
+    	</f:facet>  
+	</p:ajaxStatus>      
         
       <h:form id="searchForm">
        <h:panelGrid columns="1" style="margin: 0 auto;">
-        <h1>Memento: Time Travel For The Web</h1>
-        <h:messages />
         <h:panelGrid columns="2" border="0">
           <h:graphicImage value="images/mementologo.png" />
           <h:panelGrid columns="1" border="0" style="text-align: center;">        
@@ -40,8 +72,9 @@
        </h:panelGrid>
       
       <h:panelGrid columns="1" style="margin: 0 auto;" rendered="#{mementoBackingBean.urlSet}">
+      <h:panelGrid columns="2" style="margin: 0 auto;">
       <h:panelGroup>
-      <h2>Summary</h2>
+      <h:messages />
       <p>
         This URL (<h:outputLink value="#{mementoBackingBean.url}">#{mementoBackingBean.url}</h:outputLink>) has been archived #{mementoBackingBean.totalCount} times by #{mementoBackingBean.numHosts} organisation(s) between #{mementoBackingBean.firstMemento.dateTime.year} and #{mementoBackingBean.lastMemento.dateTime.year}.
       </p>
@@ -51,10 +84,7 @@
       <p>
         <h:outputLink value="http://webcitation.org/archive?url=#{mementoBackingBean.url}">Click here to use WebCite&#153; to archive #{mementoBackingBean.url}</h:outputLink>.
       </p>
-      </h:panelGroup>
-          
-      <h:panelGroup>
-      <h2>Host Archives</h2>
+      
     <p:dataTable id="summaryTable" var="h" value="#{mementoBackingBean.hosts}" 
     		sortBy="#{mementoBackingBean.hostCounts[h]}" sortOrder="descending">
     
@@ -74,14 +104,52 @@
         
     </p:dataTable>
     </h:panelGroup>
+    <h:panelGroup>
+                
+<svg id="test1"></svg>
+
+<script> 
+
+  var testdata = [ 
+                  {
+                	    key: "Archive Hosts",
+                	    values: [
+                   #{mementoBackingBean.hostPieData} 
+                   ] } ];
+
+nv.addGraph(function() {
+    var width = 300,
+        height = 300;
+
+    var chart = nv.models.pieChart()
+        .x(function(d) { return d.label })
+        .y(function(d) { return d.value })
+        .showLabels(false)
+        .color(d3.scale.category10().range())
+        .width(width)
+        .height(height);
+
+      d3.select("#test1")
+          .datum(testdata)
+        .transition().duration(1200)
+          .attr('width', width)
+          .attr('height', height)
+          .call(chart);
+
+    return chart;
+});
+
+</script>
+    
+    </h:panelGroup>
+    </h:panelGrid>
     
       <h:panelGroup>
       <h2>Archived Instances</h2>
 	<p:dataTable id="resultsTable" var="m" value="#{mementoBackingBean.mementos}" 
 				sortBy="#{m.dateTime}" sortOrder="descending" 
-				paginator="true" rows="10"  
-                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
-                rowsPerPageTemplate="10,25,50,100">  
+				paginator="true" rows="25"  
+                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >
   
         <p:column sortBy="#{m.dateTime}">  
             <f:facet name="header">  
@@ -130,7 +198,8 @@
     
     </h:panelGrid>
     
-      
+    </div>
+    </div>
       
     </h:body>
 </f:view>
