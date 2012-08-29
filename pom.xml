@@ -79,12 +79,6 @@
    <artifactId>jersey-json</artifactId>
    <version>${jersey.version}</version>
   </dependency>
-  <dependency>
-   <groupId>tomcat</groupId>
-   <artifactId>commons-el</artifactId>
-   <version>5.5.23</version>
-   <scope>provided</scope>
-  </dependency>
  </dependencies>
  <repositories>
   <repository>
@@ -94,4 +88,17 @@
    <layout>default</layout>
   </repository>
  </repositories>
+ <profiles>
+  <profile>
+   <id>production</id>
+   <!-- Additional dependencies required because production runs Tomcat 5.5 -->
+   <dependencies>
+    <dependency>
+     <groupId>org.glassfish.web</groupId>
+     <artifactId>el-impl</artifactId>
+     <version>2.2</version>
+    </dependency>
+   </dependencies>
+  </profile>
+ </profiles>
 </project>
