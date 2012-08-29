@@ -30,12 +30,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#{mementoBackingBean.absoluteUrl}/"><img src="#{mementoBackingBean.absoluteUrl}/images/ukwa-icon-nobg-16.png"/>UK Web Archive</a>
+          <a class="brand" href="http://www.webarchive.org.uk/"><img src="#{mementoBackingBean.absoluteUrl}/images/ukwa-icon-nobg-16.png"/>UK Web Archive</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="#{mementoBackingBean.absoluteUrl}">Home</a></li>
-              <li><a href="https://github.com/ukwa/opendata">GitHub</a></li>
-              <li><a href="http://www.webarchive.org.uk/">UKWA</a></li>
+              <li><a href="http://www.webarchive.org.uk/">Home</a></li>
+              <li class="active"><a href="#{mementoBackingBean.absoluteUrl}/">BlueBox</a></li>
+              <li><a href="https://github.com/ukwa/">GitHub</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -45,7 +45,7 @@
     <div class="container">
 
       <!-- Example row of columns -->
-      <div class="row">
+      <div class="row first-row">
     
 	<p:ajaxStatus style="float:right;" id="ajaxStatusPanel">  
     	<f:facet name="start">  
@@ -128,6 +128,12 @@ nv.addGraph(function() {
         .color(d3.scale.category10().range())
         .width(width)
         .height(height);
+    
+      chart.tooltipContent(
+    		  function(key, y, e, graph) {
+          		return '<p><img style="width: 16px; height: 16px;" src="#{mementoBackingBean.absoluteUrl}/images/favicons/'+key+'/favicon.ico"/>&#160;<b>' + key + '</b></p>' +
+          		'<p>' +  e.value + ' snapshots</p>'
+      });
 
       d3.select("#test1")
           .datum(testdata)
@@ -184,7 +190,7 @@ nv.addGraph(function() {
 
     <h:panelGroup style="text-align: center;">
      <p>
-      Bookmarklet:&#160;<h:outputLink value="javascript:void(location.href='#{mementoBackingBean.absoluteUrl}/search.jsf?url='+escape(location.href))">(m)</h:outputLink>
+      Bookmarklet:&#160;<h:outputLink value="javascript:void(location.href='#{mementoBackingBean.absoluteUrl}/search.jsf?url='+escape(location.href))">BlueBox</h:outputLink>
      </p>
      <p>
       For more information on Memento, see&#160;<h:outputLink value="http://www.mementoweb.org/">www.mementoweb.org</h:outputLink>.
