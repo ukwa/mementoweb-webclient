@@ -8,7 +8,10 @@
         <f:viewParam name="url" value="#{mementoBackingBean.url}" />
     </f:metadata>
     <h:head>
-        <title>Memento Search - #{mementoBackingBean.url}</title>
+        <title>BlueBox - #{mementoBackingBean.url}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	    <meta name="description" content="UK Web Archive - BlueBox"/>
+    	<meta name="author" content="www.webarchive.org.uk"/>
 		<f:facet name="first">
 	      <h:outputStylesheet library="bootstrap" name="css/bootstrap.css" />
 	      <h:outputStylesheet library="css" name="style.css" />
@@ -72,9 +75,9 @@
        </h:panelGrid>
       
       <h:panelGrid columns="1" style="margin: 0 auto;" rendered="#{mementoBackingBean.urlSet}">
+      <h:messages style='list-style: none; margin-left: 0;' fatalClass='alert alert-error' errorClass="alert alert-error" infoClass='alert alert-info' warnClass="alert alert-warn"/>
       <h:panelGrid columns="2" style="margin: 0 auto;">
       <h:panelGroup>
-      <h:messages />
       <p>
         This URL (<h:outputLink value="#{mementoBackingBean.url}">#{mementoBackingBean.url}</h:outputLink>) has been archived #{mementoBackingBean.totalCount} times by #{mementoBackingBean.numHosts} organisation(s) between #{mementoBackingBean.firstMemento.dateTime.year} and #{mementoBackingBean.lastMemento.dateTime.year}.
       </p>
