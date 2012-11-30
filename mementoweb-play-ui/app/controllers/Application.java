@@ -10,6 +10,7 @@ import views.html.*;
 import models.Task;
 
 import uk.bl.wap.memento.MementoSearchBean;
+import uk.bl.wap.memento.jsf.MementoBackingBean;
 
 public class Application extends Controller {
 
@@ -59,10 +60,10 @@ public class Application extends Controller {
   }
 
   public static Result findMementos(String url) {
-    MementoSearchBean msb = new MementoSearchBean();
+    MementoBackingBean msb = new MementoBackingBean();
     msb.setUrl(url);
     return ok(
-      views.html.mementos.render(msb)
+      views.html.search.render(msb)
     );
   }
 
