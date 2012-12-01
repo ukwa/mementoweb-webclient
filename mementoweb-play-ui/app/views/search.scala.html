@@ -59,8 +59,8 @@
       
       @if(msb.isUrlSet()) {
 
-      <div columns="2" style="margin: 0 auto;">
-      <div>
+      <div class="row">
+      <div class="span8">
       <p>
         This URL (<a href="@msb.getUrl()">@msb.getUrl()</a>) has been archived @msb.getTotalCount() times by @msb.getNumHosts() organisation(s) between @msb.getFirstMemento().getDateTime().getYear() and @msb.getLastMemento().getDateTime().getYear().
       </p>
@@ -71,28 +71,28 @@
         <a href="http://webcitation.org/archive?url=@msb.getUrl()">Click here to use WebCite&#153; to archive @msb.getUrl()</a>.
       </p>
       
-    <p:dataTable id="summaryTable" var="h" value="#{mementoBackingBean.hosts}" 
-    		sortBy="#{mementoBackingBean.hostCounts[h]}" sortOrder="descending">
-    
-        <p:column sortBy="#{h}">  
-            <f:facet name="header">  
-                <h:outputText value="Host Archive" />  
-            </f:facet>
-            <h:graphicImage value="images/favicons/#{h}/favicon.ico"/>&#160;<h:outputLink value="http://#{h}">#{h}</h:outputLink>
-        </p:column>
-        
-        <p:column sortBy="#{mementoBackingBean.hostCounts[h]}">  
-            <f:facet name="header">  
-                <h:outputText value="Archived Versions" />  
-            </f:facet>
-            <h:outputText value="#{mementoBackingBean.hostCounts[h]}" />
-        </p:column>
-        
-    </p:dataTable>
+
+    <table id="host_summary" class="table table-striped table-condensed table-bordered">
+        <thead>
+            <th>Archival Host</th>
+            <th>Archived Versions</th>
+        </thead>
+        <tbody>
+        @for(h <- msb.getHosts()) {
+            <tr>
+                <td>
+            <img src="@routes.Assets.at("images/favicons/"+h+"/favicon.ico")"/>&#160;<a href="http://@h">@h</a>
+                </td>
+                <td>@msb.getHostCounts().get(h)</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
     </div>
-    <div>
+    <div class="span4">
                 
-<svg id="test1"></svg>
+<svg id="test1" style="width: 300px; height: 300px;"></svg>
 
 <script> 
 
@@ -117,7 +117,7 @@ nv.addGraph(function() {
     
       chart.tooltipContent(
     		  function(key, y, e, graph) {
-          		return '<p><img style="width: 16px; height: 16px;" src="#{mementoBackingBean.absoluteUrl}/images/favicons/'+key+'/favicon.ico"/>&#160;<b>' + key + '</b></p>' +
+          		return '<p><img style="width: 16px; height: 16px;" src="@routes.Assets.at("images/favicons/")'+key+'/favicon.ico"/>&#160;<b>' + key + '</b></p>' +
           		'<p>' +  e.value + ' snapshots</p>'
       });
 
@@ -180,7 +180,7 @@ nv.addGraph(function() {
         return b - a;
     }
     } );
-/*
+
             $(document).ready(function() {
                 $('#mementos_list').dataTable( {
                     "aoColumns": [
@@ -190,7 +190,6 @@ nv.addGraph(function() {
                     ]
                 } );
             } );
-*/
     </script>
     
     </div>
