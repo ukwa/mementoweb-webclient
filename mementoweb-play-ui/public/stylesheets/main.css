@@ -14,27 +14,14 @@ svg {
 text {
   font: 12px sans-serif;
 }
-.ui-widget table {
-    font-size: 0.95em;
+#searchForm div.input, #searchForm .help-block {
+  display: inline-block;
 }
-.ui-widget, .ui-widget .ui-widget {
-  font-size: 80% !important;
+#idQueryUrl {
 }
-/*
-.navbar-inner {
-  background: #009999;
-  background-image: -moz-linear-gradient(top, #009999, #008282);
-  background-image: -ms-linear-gradient(top, #009999, #008282);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#009999), to(#008282));
-  background-image: -webkit-linear-gradient(top, #009999, #008282);
-  background-image: -o-linear-gradient(top, #009999, #008282);
-  background-image: linear-gradient(top, #009999, #008282);
-  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#009999', endColorstr='#008282', GradientType=0);
+#idQueryUrl_field label {
+    display: none;
 }
-.navbar .brand, .navbar .nav > li > a {
- color: white;
+#idQueryUrl_field input {
+    margin-top: 20px;
 }
-.navbar .nav .active > a, .navbar .nav .active > a:hover {
-background: #008282;
-}
-*/

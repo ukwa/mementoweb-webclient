@@ -10,9 +10,8 @@ import views.html.*;
 
 import models.Task;
 import models.Query;
-
-import uk.bl.wap.memento.MementoSearchBean;
-import uk.bl.wap.memento.jsf.MementoBackingBean;
+import models.memento.MementoSearchBean;
+import models.memento.MementoQuery;
 
 public class Application extends Controller {
 
@@ -65,16 +64,15 @@ public class Application extends Controller {
 
   public static Result queryMementos() {
     return ok(
-      views.html.search.render(new MementoBackingBean(), queryForm)
+      views.html.search.render(new MementoQuery(), queryForm)
     );
   }
 
   public static Result findMementos() {
     Form<Query> urlParam = queryForm.bindFromRequest();
-    System.err.println("ERROR "+urlParam.hasErrors());
     if(urlParam.hasErrors()) {
         return badRequest(
-          views.html.search.render(new MementoBackingBean(), urlParam)
+          views.html.search.render(new MementoQuery(), urlParam)
         );
     }
     Query q = urlParam.get();
@@ -83,12 +81,16 @@ public class Application extends Controller {
   }
 
   public static Result findMementosFor(String url) {
-    MementoBackingBean msb = (MementoBackingBean) Cache.get("Mementos."+url);
+    MementoQuery msb = (MementoQuery) Cache.get("Mementos."+url);
     if( msb == null ) {
-      msb = new MementoBackingBean();
+      msb = new MementoQuery();
+      Logger.info("URL:"+url);
       msb.setUrl(url);
     }
     Cache.set("Mementos."+url, msb);
+    // Check for warnings:
+    if( msb.getErrorMessage() != null )
+      flash("success", msb.getErrorMessage() );
     // Rebuild a Query object.
     Query q = new Query();
     q.url = url;
