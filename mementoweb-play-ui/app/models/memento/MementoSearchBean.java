@@ -136,7 +136,7 @@ public class MementoSearchBean implements Serializable {
     	}
     	this.hosts = new ArrayList<String>(hostCount.keySet());
     }
-
+	
 	/**
 	 * @return the errorMessage
 	 */
