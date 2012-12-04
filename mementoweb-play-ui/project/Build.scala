@@ -9,7 +9,7 @@ object ApplicationBuild extends Build {
 
     val appDependencies = Seq(
       // Add your project dependencies here,
-      "uk.bl.wap.memento" % "memento-webclient" % "1.0.0-SNAPSHOT"
+      "uk.bl.wap.memento" % "mementoweb-java-client" % "1.0.0-SNAPSHOT"
     )
 
     val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).settings(

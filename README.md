@@ -15,7 +15,7 @@ http://www.webarchive.org.uk/waybacktg/ore/timemap/rdf/http://en.wikipedia.org/w
 
 Which is the RDF form, so need an RDF parser to extract the instances.
 
-It appears the Aggregator is still using a proxy, so we should more Memento to production.
+It appears the Aggregator is still using a proxy, so we should move Memento to production.
 
 http://mementoweb.org/depot/proxy/BL/
 
@@ -28,6 +28,13 @@ Note that
 curl  http://api.wayback.archive.org/list/timemap/link/http://en.wikipedia.org/wiki/Wikipedia:Wikipedia_is_an_encyclopedia
 
 Works fine, so I wonder if the error on the BL proxy is throwing the whole aggregation off?
+
+
+Known TimeGates
+---------------
+http://mementoproxy.lanl.gov/aggr/timegate/
+http://mementoproxy.lanl.gov/google/timegate/
+http://www.webarchive.org.uk/wayback/memento/timegate/
 
 
 Running during development

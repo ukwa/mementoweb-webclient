@@ -3,8 +3,7 @@
  <modelVersion>4.0.0</modelVersion>
  <groupId>uk.bl.wap.memento</groupId>
  <artifactId>memento-webclient</artifactId>
- <packaging>war</packaging>
- <version>1.0-SNAPSHOT</version>
+ <version>1.0.0-SNAPSHOT</version>
  <name>memento-webclient Maven Webapp</name>
  <url>http://maven.apache.org</url>
  <properties>

@@ -47,7 +47,7 @@
 
       @helper.form(action = routes.Application.findMementos(), 'id -> "searchForm", 'class -> "form-horizontal form-inline" ) {
       <div class="row first-row">
-        <div class="span1 offset4">
+        <div class="span1 offset4" style="text-align: center;">
           <img src="@routes.Assets.at("/images/mementologo.png")"/>
         </div>
           <div class="span3" style="text-align: center;">
@@ -166,7 +166,7 @@ nv.addGraph(function() {
         @for(m <- msb.getMementos()) {
             <tr>
                 <td>@m.getDateTime()</td>
-                <td><a href="@m.getUrl()">@m.getRel() @@ @m.getArchiveHost()</a></td>
+                <td><a href="@m.getWaybackUrl()">@m.getRel() @@ @m.getArchiveHost()</a></td>
             </tr>
         }
         </tbody>
