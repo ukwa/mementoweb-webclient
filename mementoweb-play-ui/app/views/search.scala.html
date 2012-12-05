@@ -108,6 +108,20 @@
         </tbody>
     </table>
 
+    <script>
+    $(document).ready(function() {
+      $('#host_summary').dataTable( {
+        "bPaginate": false,
+        "bLengthChange": false,
+        "bFilter": false,
+        "bSort": true,
+        "bInfo": false,
+        "bAutoWidth": false,
+        "aaSorting": [[ 1, "desc" ]]
+      } );
+    } );
+    </script>
+
     </div>
     <div class="span4">
                 

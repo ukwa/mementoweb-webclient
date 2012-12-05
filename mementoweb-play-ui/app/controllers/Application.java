@@ -12,6 +12,7 @@ import models.Task;
 import models.Query;
 import models.memento.MementoSearchBean;
 import models.memento.MementoQuery;
+import models.memento.MementoTimeGraph;
 
 public class Application extends Controller {
 
@@ -49,8 +50,8 @@ public class Application extends Controller {
    * Return Mementos as JSON:
    */
   public static Result findMementosApi(String url) {
-    MementoSearchBean msb = new MementoSearchBean();
-    msb.setUrl(url);
+    MementoQuery msb = doQuery(url);
+    //
     if (request().accepts("text/html")) {
           return ok("html "+url+"\n"+msb+"\n");
         } else if (request().accepts("application/json")) {
@@ -81,13 +82,7 @@ public class Application extends Controller {
   }
 
   public static Result findMementosFor(String url) {
-    MementoQuery msb = (MementoQuery) Cache.get("Mementos."+url);
-    if( msb == null ) {
-      msb = new MementoQuery();
-      Logger.info("URL:"+url);
-      msb.setUrl(url);
-    }
-    Cache.set("Mementos."+url, msb);
+    MementoQuery msb = doQuery(url);
     // Check for warnings:
     if( msb.getErrorMessage() != null )
       flash("success", msb.getErrorMessage() );
@@ -97,6 +92,25 @@ public class Application extends Controller {
     return ok(
       views.html.search.render(msb, queryForm.fill(q))
     );
+  }
+
+  /**
+   * 
+   */
+  private static MementoQuery doQuery(String url) {
+    MementoQuery msb = (MementoQuery) Cache.get("Mementos."+url);
+    if( msb == null ) {
+      msb = new MementoQuery();
+      Logger.info("URL:"+url);
+      msb.setUrl(url);
+    }
+    Cache.set("Mementos."+url, msb);
+    return msb;
+  }
+
+  public static Result apiTimeGraph(String url) {
+    MementoQuery msb = doQuery(url);
+    return ok(Json.toJson(MementoTimeGraph.makeYearwiseData(msb)));
   }
 
 }

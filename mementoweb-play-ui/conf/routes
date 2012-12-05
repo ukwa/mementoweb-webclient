@@ -17,3 +17,6 @@ POST    /tasks/:id/delete       controllers.Application.deleteTask(id: Long)
 GET     /mementos/*url          controllers.Application.findMementosFor(url)
 GET     /mementos               controllers.Application.queryMementos()
 POST    /mementos               controllers.Application.findMementos()
+
+# JSON versions
+GET     /api/timegraph/*url     controllers.Application.apiTimeGraph(url)
