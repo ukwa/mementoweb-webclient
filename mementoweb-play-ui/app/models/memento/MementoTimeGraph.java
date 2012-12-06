@@ -16,7 +16,12 @@ public class MementoTimeGraph {
 
 	public class Series {
 		public String key;
-		public List<String[]> values;
+		public List<Point> values;
+	}
+	
+	public class Point {
+		public double x;
+		public double y;
 	}
 	
 	public static List<Series> makeExample( ){
@@ -24,8 +29,8 @@ public class MementoTimeGraph {
 		MementoTimeGraph mtg = new MementoTimeGraph();
 		Series series1 = mtg.new Series();
 		series1.key = "A Key";
-		series1.values = new ArrayList<String[]>();
-		series1.values.add( new String[] {"10", "10"} );
+		series1.values = new ArrayList<Point>();
+		series1.values.add( mtg.new Point() );
 		data.add(series1);
 		return data;
 	}
@@ -37,7 +42,7 @@ public class MementoTimeGraph {
 		int minYear = -1, maxYear = -1;
 		for( String host : msb.getHosts() ) {
 			for( MementoBean m : msb.getMementos() ) {
-				if( m.getArchiveHost().equals(host) ) {
+				if( host.equals(m.getArchiveHost()) ) {
 					Integer year = m.getDateTime().getYear();
 					// Also record min/max:
 					if( minYear == -1 || year.intValue() < minYear) minYear = year.intValue();
@@ -51,7 +56,7 @@ public class MementoTimeGraph {
 			series.key = host;		
 			HashMap<Integer,Integer> byYear = new LinkedHashMap<Integer,Integer>();
 			for( MementoBean m : msb.getMementos() ) {
-				if( m.getArchiveHost().equals(host) ) {
+				if( host.equals(m.getArchiveHost()) ) {
 					Integer year = m.getDateTime().getYear();
 					Integer total = byYear.get(year);
 					if( total == null ) total = new Integer(0);
@@ -60,12 +65,18 @@ public class MementoTimeGraph {
 				}
 			}
 			// Now assemble:
-			series.values = new ArrayList<String[]>();
+			series.values = new ArrayList<Point>();
 			for( int year = minYear; year <= maxYear; year++ ) {
 				Integer key = new Integer(year);
 				Integer value = byYear.get(year);
-				if( value == null ) value = new Integer(0); 
-				series.values.add(new String[] {""+key,""+value} );
+				Point p = mtg.new Point();
+				p.x = key;
+				if( value == null ) {
+					p.y = 0;
+				} else {
+					p.y = value;
+				}
+				series.values.add(p);
 			}
 			//
 			data.add(series);

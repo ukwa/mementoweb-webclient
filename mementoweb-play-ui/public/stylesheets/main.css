@@ -25,3 +25,6 @@ text {
 #idQueryUrl_field input {
     margin-top: 20px;
 }
+#thumbnail_summary th, #thumbnail_summary td {
+  text-align: center;	
+}

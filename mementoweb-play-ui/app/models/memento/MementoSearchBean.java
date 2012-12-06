@@ -106,6 +106,17 @@ public class MementoSearchBean implements Serializable {
 	}
 
 	/**
+	 * 
+	 * @return
+	 */
+    public MementoBean getMidpointMemento() {
+		if( this.mementoList != null ) {
+			return new MementoBean( this.mementoList.get( this.mementoList.size()/2 ) );
+		}
+		return null;
+    }
+
+	/**
 	 */
 	private void doSearch() {
 		// Query:
