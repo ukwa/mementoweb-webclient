@@ -42,8 +42,8 @@ public class Screenshot {
 		String[] cmd = new String[] { 
 				"phantomjs", URLENDER, url, urls.getAbsolutePath(), png.getAbsolutePath() 
 		};
-		System.out.println("This: "+png.getAbsolutePath());
-		int exitStatus = executeCommandLine(cmd, true, true, 30*1000);
+		System.out.println("PNG: "+png.getAbsolutePath());
+		int exitStatus = executeCommandLine(cmd, true, true, 60*1000);
 		Screenshot shot = new Screenshot();
 		// Load PNG
 		byte[] data = new byte[(int) png.length()];
