@@ -20,3 +20,7 @@ POST    /mementos               controllers.Application.findMementos()
 
 # JSON versions
 GET     /api/timegraph/*url     controllers.Application.apiTimeGraph(url)
+
+
+# Screenshots of URLs
+GET     /api/screenshot/*url     controllers.Application.apiScreenshot(url)

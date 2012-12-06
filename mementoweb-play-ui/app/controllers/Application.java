@@ -1,5 +1,8 @@
 package controllers;
 
+import java.io.IOException;
+import java.util.concurrent.TimeoutException;
+
 import play.*;
 import play.cache.Cache;
 import play.data.*;
@@ -8,6 +11,7 @@ import play.libs.Json;
 
 import views.html.*;
 
+import models.Screenshot;
 import models.Task;
 import models.Query;
 import models.memento.MementoSearchBean;
@@ -101,16 +105,29 @@ public class Application extends Controller {
     MementoQuery msb = (MementoQuery) Cache.get("Mementos."+url);
     if( msb == null ) {
       msb = new MementoQuery();
-      Logger.info("URL:"+url);
       msb.setUrl(url);
+      Cache.set("Mementos."+url, msb);
     }
-    Cache.set("Mementos."+url, msb);
     return msb;
   }
 
   public static Result apiTimeGraph(String url) {
     MementoQuery msb = doQuery(url);
     return ok(Json.toJson(MementoTimeGraph.makeYearwiseData(msb)));
+  }
+  
+  public static Result apiScreenshot(String url) {
+	try {
+		Screenshot shot = (Screenshot) Cache.get("Screenshot."+url);
+		if( shot == null ) {
+			Logger.info("URL:"+url);
+			shot = Screenshot.getThumbnailPNG(url);
+			Cache.set("Screenshot."+url, shot);
+		}
+		return ok(shot.screenshot).as("image/png");
+	} catch (Exception e) {
+		return badRequest("FAIL");
+	}
   }
 
 }

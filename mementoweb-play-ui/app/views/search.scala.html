@@ -129,9 +129,12 @@
        </thead>
        <tbody>
          <tr>
-           <td><a href="@msb.getFirstMemento().getWaybackUrl()"><img src="http://flock.bl.uk/webtools/image/@msb.getFirstMemento().getUrl()" width="100px"/></a></td>
-           <td><a href="@msb.getMidpointMemento().getWaybackUrl()"><img src="http://flock.bl.uk/webtools/image/@msb.getMidpointMemento().getUrl()" width="100px"/></a></td>
-           <td><a href="@msb.getLastMemento().getWaybackUrl()"><img src="http://flock.bl.uk/webtools/image/@msb.getLastMemento().getUrl()" width="100px"/></a></td>
+           <td><a href="@msb.getFirstMemento().getWaybackUrl()">
+             <img src="@routes.Application.apiScreenshot(msb.getFirstMemento().getUrl())" width="100px" class="img-polaroid"/></a></td>
+           <td><a href="@msb.getMidpointMemento().getWaybackUrl()">
+             <img src="@routes.Application.apiScreenshot(msb.getMidpointMemento().getUrl())" width="100px" class="img-polaroid"/></a></td>
+           <td><a href="@msb.getLastMemento().getWaybackUrl()">
+             <img src="@routes.Application.apiScreenshot(msb.getLastMemento().getUrl())" width="100px" class="img-polaroid"/></a></td>
          </tr>
        </tbody>
       </table>
