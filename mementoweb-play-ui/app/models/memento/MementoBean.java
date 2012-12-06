@@ -1,7 +1,6 @@
 package models.memento;
 
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
@@ -41,13 +40,12 @@ public class MementoBean {
 
 	public String getArchiveHost() {
 		try {
-			URI uri = new URI( m.getUrl() );
+			URL uri = new URL( m.getUrl() );
 			return getTopPrivateDomain(uri.getAuthority());
-		} catch (URISyntaxException e) {
-			System.err.println("Could not parse uri: "+m.getUrl());
+		} catch (Exception e) {
+			System.err.println("Exception "+e+" when attempting to parse uri: "+m.getUrl());
 			return null;
-		}
-		
+		}		
 	}
 	
 	private static String getTopPrivateDomain(String host) {

@@ -88,11 +88,11 @@
 
       <div class="row">
       @helper.form(action = routes.Application.findMementos(), 'id -> "searchForm", 'class -> "form-horizontal form-inline" ) {
-         <div class="span4">
+         <div class="span4" style="text-align: center;">
           <img src='@routes.Assets.at("/images/mementologo.png")' style="height: 30px; float: left;"/>
             @helper.inputText(searchForm("url"),'id -> "idQueryUrlTwo", '_label -> "", '_showConstraints -> false )
          </div>
-         <div class="span3">
+         <div class="span3" style="text-align: center;">
             <input type="submit" class="btn primary" value="Engage The TimeGate...">
          </div>
       }
@@ -105,7 +105,7 @@
         <th>URL</th><td><a href="@msb.getUrl()">@msb.getUrl()</a></td>
       </tr>
       <tr>
-        <th>Snapshots</th><td>@msb.getTotalCount() from @msb.getNumHosts() archives</td>
+        <th>Snapshots</th><td>@msb.getTotalCount() in @msb.getNumHosts() archives</td>
       </tr>
       <tr>
         <th>Date Range</th><td><a href="@msb.getFirstMemento().getWaybackUrl()">@msb.getFirstMemento().getDateTime().getYear()</a> to <a href="@msb.getLastMemento().getWaybackUrl()">@msb.getLastMemento().getDateTime().getYear()</a></td>
