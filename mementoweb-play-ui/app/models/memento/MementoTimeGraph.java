@@ -33,9 +33,22 @@ public class MementoTimeGraph {
 	public static Object makeYearwiseData(MementoQuery msb) {
 		List<Series> data = new ArrayList<Series>();
 		MementoTimeGraph mtg = new MementoTimeGraph();
+		// Build up data summary:
+		int minYear = -1, maxYear = -1;
+		for( String host : msb.getHosts() ) {
+			for( MementoBean m : msb.getMementos() ) {
+				if( m.getArchiveHost().equals(host) ) {
+					Integer year = m.getDateTime().getYear();
+					// Also record min/max:
+					if( minYear == -1 || year.intValue() < minYear) minYear = year.intValue();
+					if( maxYear == -1 || year.intValue() > maxYear) maxYear = year.intValue();
+				}
+			}
+		}
+		// Convert to series:
 		for( String host : msb.getHosts() ) {
 			Series series = mtg.new Series();
-			series.key = host;
+			series.key = host;		
 			HashMap<Integer,Integer> byYear = new LinkedHashMap<Integer,Integer>();
 			for( MementoBean m : msb.getMementos() ) {
 				if( m.getArchiveHost().equals(host) ) {
@@ -48,8 +61,11 @@ public class MementoTimeGraph {
 			}
 			// Now assemble:
 			series.values = new ArrayList<String[]>();
-			for( Integer year : byYear.keySet() ) {
-				series.values.add(new String[] {""+year,""+byYear.get(year)} );
+			for( int year = minYear; year <= maxYear; year++ ) {
+				Integer key = new Integer(year);
+				Integer value = byYear.get(year);
+				if( value == null ) value = new Integer(0); 
+				series.values.add(new String[] {""+key,""+value} );
 			}
 			//
 			data.add(series);

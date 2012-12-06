@@ -19,8 +19,8 @@ public class Application extends Controller {
   static Form<Task> taskForm = form(Task.class);
 
  public static Result index() {
-    return redirect(routes.Application.tasks());
-    //return ok(index.render("Your new application is ready."));
+    //return redirect(routes.Application.tasks());
+    return ok("Your new application is ready.");
   }
   
   public static Result tasks() {
