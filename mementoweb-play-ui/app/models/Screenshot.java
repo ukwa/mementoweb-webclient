@@ -48,7 +48,7 @@ public class Screenshot {
 				"phantomjs", URLENDER, url, urls.getAbsolutePath(), png.getAbsolutePath() 
 		};
 		logger.debug("PNG: "+png.getAbsolutePath());
-		int exitStatus = executeCommandLine(cmd, true, true, 60*1000);
+		int exitStatus = executeCommandLine(cmd, true, true, 90*1000);
 		Screenshot shot = new Screenshot();
 		// Load PNG
 		byte[] data = new byte[(int) png.length()];

@@ -18,6 +18,8 @@ GET     /bluebox/               controllers.Application.index()
 GET     /bluebox/search/*url    controllers.Application.findMementosFor(url)
 GET     /bluebox/search         controllers.Application.queryMementos()
 POST    /bluebox/search         controllers.Application.findMementos()
+# Previous API - /bluebox/search.jsf?url=
+GET     /bluebox/search.jsf     controllers.Application.findMementosRedirect(url)
 
 # JSON versions
 GET     /bluebox/api/timegraph/*url     controllers.Application.apiTimeGraph(url)

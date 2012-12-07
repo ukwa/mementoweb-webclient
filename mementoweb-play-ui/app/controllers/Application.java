@@ -84,6 +84,10 @@ public class Application extends Controller {
 //    return findMementosFor(q.url);
   }
 
+  public static Result findMementosRedirect(String url) {
+	return redirect(routes.Application.findMementosFor(url));
+  }
+  
   public static Result findMementosFor(String url) {
     MementoQuery msb = doQuery(url);
     // Check for warnings:
@@ -119,8 +123,9 @@ public class Application extends Controller {
 	try {
 		Screenshot shot = (Screenshot) Cache.get("Screenshot."+url);
 		if( shot == null ) {
-			Logger.info("URL:"+url);
+			Logger.debug("Taking screenshot of "+url);
 			shot = Screenshot.getThumbnailPNG(url);
+			Logger.debug("Taken screenshot of "+url);
 			Cache.set("Screenshot."+url, shot);
 		}
 		return ok(shot.screenshot).as("image/png");

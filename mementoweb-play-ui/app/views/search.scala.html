@@ -65,13 +65,13 @@
           <div class="span12" style="text-align: center;">
             @if(searchForm.hasGlobalErrors) { 
                 <div class="alert alert-error">
-                <a class="close" data-dismiss="alert">x</a>
+                <a class="close" data-dismiss="alert">×</a>
                     @searchForm.globalError.message
                 </div>
             }
             @if(flash.contains("success")) {
                 <div class="alert alert-success">
-                <a class="close" data-dismiss="alert">x</a>
+                <a class="close" data-dismiss="alert">×</a>
                     @flash.get("success")
                 </div>
             }
@@ -105,7 +105,7 @@
         <th>URL</th><td><a href="@msb.getUrl()">@msb.getUrl()</a></td>
       </tr>
       <tr>
-        <th>Snapshots</th><td>@msb.getTotalCount() in @msb.getNumHosts() archives</td>
+        <th>Snapshots</th><td>@msb.getTotalCount() in @msb.getNumHosts() archive(s)</td>
       </tr>
       <tr>
         <th>Date Range</th><td><a href="@msb.getFirstMemento().getWaybackUrl()">@msb.getFirstMemento().getDateTime().getYear()</a> to <a href="@msb.getLastMemento().getWaybackUrl()">@msb.getLastMemento().getDateTime().getYear()</a> (@msb.getTimeSinceLastMemento())</td>

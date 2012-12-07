@@ -5,6 +5,20 @@ This is a very simple web client that exposes web archive holdings via the Memen
 
 Given a URL, the client uses one or more known TimeGates to look up all known archival holdings, them summarises them and provides links.
 
+To Do List
+----------
+
+ * Add Help, esp. for the bookmarklet, as popovers (http://twitter.github.com/bootstrap/javascript.html#popovers)
+ * Add text that displays if there is no JavaScript?
+ * Allow years to be selected, in turn filtering the list of Mementos to show a year-long graph etc.
+ * Add a lots-of-screenshots timeline.
+ * Use timeline screenshots to estimate degree of change over time (e.g. even just colour changes).
+ * Make screenshots cope better with none-HTML content?
+
+
+Memento Issues
+==============
+
 One minor issue appears to be that the lanl.gov aggregate TimeGate does not appear to aggregate everything. Things like individual Wikipedia pages are (e.g. ) not coming up, despite the fact they are in the UK Web Archive and indeed reported by our TimeGate.  They are also clearly stored elsewhere, e.g. http://wayback.archive.org/web/*/http://en.wikipedia.org/wiki/Wikipedia:Wikipedia_is_an_encyclopedia
 
 curl -I http://www.webarchive.org.uk/waybacktg/memento/timegate/http://en.wikipedia.org/wiki/Wikipedia:Wikipedia_is_an_encyclopedia
@@ -38,10 +52,18 @@ http://www.webarchive.org.uk/wayback/memento/timegate/
 
 See also http://mementoweb.org/depot/
 
+Notes
+-----
+[http://www.slideshare.net/hvdsomp/memento-updated-technical-details-february-2010][1] 
+See also the JISC Repositories mailing list discussion.[https://www.jiscmail.ac.uk/cgi-bin/webadmin?A2=ind1002&L=JISC-REPOSITORIES&T=0&F=&S=&P=10604][2] 
+[http://arxiv.org/abs/1003.3661][3] 
 
-Running during development
---------------------------
+[http://lists.w3.org/Archives/Public/public-lod/2010Mar/0169.html][4] 
 
-When developing, this is a handy way to run the code while tweaking the files:
 
-    mvn clean war:inplace tomcat6:run
+  [1]: http://www.slideshare.net/hvdsomp/memento-updated-technical-details-february-2010
+  [2]: https://www.jiscmail.ac.uk/cgi-bin/webadmin?A2=ind1002&amp;L=JISC-REPOSITORIES&amp;T=0&amp;F=&amp;S=&amp;P=10604
+  [3]: http://arxiv.org/abs/1003.3661
+  [4]: http://lists.w3.org/Archives/Public/public-lod/2010Mar/0169.html
+
+
