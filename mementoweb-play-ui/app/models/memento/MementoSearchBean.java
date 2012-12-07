@@ -5,12 +5,20 @@ package models.memento;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import org.joda.time.Instant;
+import org.joda.time.Interval;
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
+import org.joda.time.format.PeriodFormat;
 
 import dev.memento.Memento;
 import dev.memento.MementoClient;
 import dev.memento.MementoList;
+import dev.memento.SimpleDateTime;
 
 /**
  * @author Andrew Jackson <Andrew.Jackson@bl.uk>
@@ -116,6 +124,12 @@ public class MementoSearchBean implements Serializable {
 		return null;
     }
 
+    public String getTimeSinceLastMemento() {
+    	Date last = this.getLastMemento().getDateTime().getDate();
+    	Period diff = new Period( new Instant(last), new Instant(), PeriodType.yearMonthDay() );
+    	return PeriodFormat.getDefault().print(diff)+" ago";
+    }
+    
 	/**
 	 */
 	private void doSearch() {

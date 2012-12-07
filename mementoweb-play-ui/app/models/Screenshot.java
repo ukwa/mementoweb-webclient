@@ -15,11 +15,16 @@ import java.util.concurrent.TimeoutException;
 
 import javax.imageio.ImageIO;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * @author Andrew Jackson <Andrew.Jackson@bl.uk>
  *
  */
 public class Screenshot {
+	
+	private static Logger logger = LoggerFactory.getLogger(Screenshot.class);
 	
 	private static String URLENDER = "scripts/urlender.js";
 	
@@ -42,7 +47,7 @@ public class Screenshot {
 		String[] cmd = new String[] { 
 				"phantomjs", URLENDER, url, urls.getAbsolutePath(), png.getAbsolutePath() 
 		};
-		System.out.println("PNG: "+png.getAbsolutePath());
+		logger.debug("PNG: "+png.getAbsolutePath());
 		int exitStatus = executeCommandLine(cmd, true, true, 60*1000);
 		Screenshot shot = new Screenshot();
 		// Load PNG
@@ -57,7 +62,7 @@ public class Screenshot {
 	public static byte[] crop(byte[] screenshot) throws IOException {
 		Image orig = ImageIO.read(new ByteArrayInputStream(screenshot));
 
-		int x = 0, y = 0, w = 1024, h = 768;
+		int x = 0, y = 0, w = 800, h = 600;
 
 		BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		bi.getGraphics().drawImage(orig, 0, 0, w, h, x, y, x + w, y + h, null);

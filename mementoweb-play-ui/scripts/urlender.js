@@ -26,7 +26,7 @@ if (phantom.args.length != 3 ) {
     // Set up parameters
     address = phantom.args[0];
     output = phantom.args[2];
-    page.viewportSize = { width: 1024, height: 1024 };
+    page.viewportSize = { width: 800, height: 800 };
     // These parameters apply to .pdf
     page.paperSize = { format: 'A4', orientation: 'portrait', margin: '1cm' };
     // page.zoomFactor = 
@@ -40,7 +40,7 @@ if (phantom.args.length != 3 ) {
                 page.render(output);
                 urlf.close();
                 phantom.exit();
-            }, 200);
+            }, 500);
         }
     });
 }

@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Utility thread class which consumes and displays stream input.
@@ -19,7 +19,7 @@ import org.apache.commons.logging.LogFactory;
 class StreamGobbler
     extends Thread
 {
-    static private Log log = LogFactory.getLog(StreamGobbler.class);
+    static private Logger log = LoggerFactory.getLogger(StreamGobbler.class);
     private InputStream inputStream;
     private String streamType;
     private boolean displayStreamOutput;
@@ -55,7 +55,7 @@ class StreamGobbler
             {
                 if (displayStreamOutput)
                 {
-                    System.out.println(streamType + ">" + line);
+                    log.info(streamType + ">" + line);
                 }
             }
         }

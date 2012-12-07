@@ -25,6 +25,15 @@ text {
 #idQueryUrl_field input {
     margin-top: 20px;
 }
-#thumbnail_summary th, #thumbnail_summary td {
-  text-align: center;	
+#thumbnail_summary img {
+	width: 120px;
+	height: 90px;
+	border: 1px solid #ddd;
+}
+#thumbnail_summary .thumbnail {
+	text-align: center;
+	font-weight: bold;
+}
+#thumbnail_summary p {
+	margin: 2px 0 0 1px;
 }

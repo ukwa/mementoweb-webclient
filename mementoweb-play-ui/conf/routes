@@ -6,7 +6,7 @@
 GET     /                       controllers.Application.index()
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /bluebox/assets/*file   controllers.Assets.at(path="/public", file)
 
 # Tasks          
 GET     /tasks                  controllers.Application.tasks()
@@ -14,13 +14,14 @@ POST    /tasks                  controllers.Application.newTask()
 POST    /tasks/:id/delete       controllers.Application.deleteTask(id: Long)
 
 # URL Lookup
-GET     /mementos/*url          controllers.Application.findMementosFor(url)
-GET     /mementos               controllers.Application.queryMementos()
-POST    /mementos               controllers.Application.findMementos()
+GET     /bluebox/               controllers.Application.index()
+GET     /bluebox/search/*url    controllers.Application.findMementosFor(url)
+GET     /bluebox/search         controllers.Application.queryMementos()
+POST    /bluebox/search         controllers.Application.findMementos()
 
 # JSON versions
-GET     /api/timegraph/*url     controllers.Application.apiTimeGraph(url)
+GET     /bluebox/api/timegraph/*url     controllers.Application.apiTimeGraph(url)
 
 
 # Screenshots of URLs
-GET     /api/screenshot/*url     controllers.Application.apiScreenshot(url)
+GET     /bluebox/api/screenshot/*url     controllers.Application.apiScreenshot(url)

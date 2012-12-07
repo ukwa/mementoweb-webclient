@@ -84,7 +84,7 @@
       @if(msb.hasValidResults()) {
 
       <div class="row">
-      <div class="span7">
+      <div class="span8">
 
       <div class="row">
       @helper.form(action = routes.Application.findMementos(), 'id -> "searchForm", 'class -> "form-horizontal form-inline" ) {
@@ -99,7 +99,7 @@
       </div>
       
       <div class="row" style="padding-top: 10px;">
-      <div class="span7">
+      <div class="span8">
       <table class="table table-striped table-condensed table-bordered">
       <tr>
         <th>URL</th><td><a href="@msb.getUrl()">@msb.getUrl()</a></td>
@@ -108,7 +108,7 @@
         <th>Snapshots</th><td>@msb.getTotalCount() in @msb.getNumHosts() archives</td>
       </tr>
       <tr>
-        <th>Date Range</th><td><a href="@msb.getFirstMemento().getWaybackUrl()">@msb.getFirstMemento().getDateTime().getYear()</a> to <a href="@msb.getLastMemento().getWaybackUrl()">@msb.getLastMemento().getDateTime().getYear()</a></td>
+        <th>Date Range</th><td><a href="@msb.getFirstMemento().getWaybackUrl()">@msb.getFirstMemento().getDateTime().getYear()</a> to <a href="@msb.getLastMemento().getWaybackUrl()">@msb.getLastMemento().getDateTime().getYear()</a> (@msb.getTimeSinceLastMemento())</td>
       </tr>
       <tr>
         <th>Request Archive</th><td><a href="http://webcitation.org/archive?url=@msb.getUrl()">via WebCite&#153;</a></td>
@@ -118,31 +118,45 @@
 	  </div>
       
       <div class="row">
-      <div class="span7">
-      <table id="thumbnail_summary" class="table table-striped table-condensed table-bordered">
-      <thead>
-        <tr>
-          <th>@msb.getFirstMemento().getDateTime().getYear()</th>
-          <th>@msb.getMidpointMemento().getDateTime().getYear()</th>
-          <th>@msb.getLastMemento().getDateTime().getYear()</th>
-        </tr>
-       </thead>
-       <tbody>
-         <tr>
-           <td><a href="@msb.getFirstMemento().getWaybackUrl()">
-             <img src="@routes.Application.apiScreenshot(msb.getFirstMemento().getUrl())" width="100px" class="img-polaroid"/></a></td>
-           <td><a href="@msb.getMidpointMemento().getWaybackUrl()">
-             <img src="@routes.Application.apiScreenshot(msb.getMidpointMemento().getUrl())" width="100px" class="img-polaroid"/></a></td>
-           <td><a href="@msb.getLastMemento().getWaybackUrl()">
-             <img src="@routes.Application.apiScreenshot(msb.getLastMemento().getUrl())" width="100px" class="img-polaroid"/></a></td>
-         </tr>
-       </tbody>
-      </table>
+      <div class="span8">
+      
+      <ul class="thumbnails" id="thumbnail_summary">
+ 	    <li class="span2">
+   	 	  <div class="thumbnail">
+             <a href="@msb.getFirstMemento().getWaybackUrl()">
+             <img src="@routes.Application.apiScreenshot(msb.getFirstMemento().getWaybackUrl())" /></a>
+            <p>@msb.getFirstMemento().getDateTime().getYear()</p>
+          </div>
+       </li>
+ 	    <li class="span2">
+   	 	  <div class="thumbnail">
+             <a href="@msb.getMidpointMemento().getWaybackUrl()">
+             <img src="@routes.Application.apiScreenshot(msb.getMidpointMemento().getWaybackUrl())" /></a>
+            <p>@msb.getMidpointMemento().getDateTime().getYear()</p>
+          </div>
+       </li>
+ 	    <li class="span2">
+   	 	  <div class="thumbnail">
+             <a href="@msb.getLastMemento().getWaybackUrl()">
+             <img src="@routes.Application.apiScreenshot(msb.getLastMemento().getWaybackUrl())" /></a>
+            <p>@msb.getLastMemento().getDateTime().getYear()</p>
+          </div>
+       </li>
+ 	    <li class="span2">
+   	 	  <div class="thumbnail">
+             <a href="@msb.getUrl()">
+             <img src="@routes.Application.apiScreenshot(msb.getUrl())" /></a>
+            <p>LIVE</p>
+          </div>
+       </li>
+      </ul>
+      
       </div>
       </div>
 
+
 	</div>      
-    <div class="span5">
+    <div class="span4">
     
 <div class="tabbable"> 
   <ul class="nav nav-tabs">
