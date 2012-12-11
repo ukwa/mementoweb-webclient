@@ -1,0 +1,69 @@
+@(msb: models.memento.MementoQuery)
+
+@import helper._
+
+@main("Mementos") {
+    
+    <h1>Archived @msb.getTotalCount() times, by @msb.getNumHosts() archival hosts.</h1>
+    
+    <table id="mementos_list">
+        <thead>
+            <th>Date &amp; Time</th>
+            <th>Archival Host</th>
+            <th>Link To Memento</th>
+        </thead>
+        <tbody>
+        @for(m <- msb.getMementos()) {
+            <tr>
+                <td>@m.getDateTime()</td>
+                <td>@m.getArchiveHost()</td>
+                <td><a href="@m.getUrl()">@m.getRel()</a></td>
+            </tr>
+        }
+        </tbody>
+    </ul>
+
+    <p>
+        @msb.getErrorMessage()
+    </p>
+
+
+    <script type="text/javascript" charset="utf-8">
+    jQuery.extend( jQuery.fn.dataTableExt.oSort, {
+    "date-euro-pre": function ( a ) {
+        if ($.trim(a) != '') {
+            var frDatea = $.trim(a).split(' ');
+            var frTimea = frDatea[1].split(':');
+            var frDatea2 = frDatea[0].split('/');
+            var yr = parseInt(frDatea2[2]);
+            if( yr > 50 ) frDatea2[2] = "19"+frDatea2[2];
+            if( yr <= 50 ) frDatea2[2] = "20"+frDatea2[2];
+            var x = parseInt(frDatea2[2] + frDatea2[1] + frDatea2[0] + frTimea[0] + frTimea[1]);
+        } else {
+            var x = 10000000000000; // = l'an 1000 ...
+        }
+         
+        return x;
+    },
+ 
+    "date-euro-asc": function ( a, b ) {
+        return a - b;
+    },
+ 
+    "date-euro-desc": function ( a, b ) {
+        return b - a;
+    }
+    } );
+
+            $(document).ready(function() {
+                $('#mementos_list').dataTable( {
+                    "aoColumns": [
+                      { "sType": "date-euro" },
+                      null,
+                      null
+                    ]
+                } );
+            } );
+    </script>
+    
+}
