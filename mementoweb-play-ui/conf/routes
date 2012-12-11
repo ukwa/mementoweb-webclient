@@ -6,7 +6,7 @@
 GET     /                       controllers.Application.index()
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /bluebox/assets/*file   controllers.Assets.at(path="/public", file)
+GET     /bluebox-beta/assets/*file   controllers.Assets.at(path="/public", file)
 
 # Tasks          
 GET     /tasks                  controllers.Application.tasks()
@@ -14,16 +14,16 @@ POST    /tasks                  controllers.Application.newTask()
 POST    /tasks/:id/delete       controllers.Application.deleteTask(id: Long)
 
 # URL Lookup
-GET     /bluebox/               controllers.Application.index()
-GET     /bluebox/search/*url    controllers.Application.findMementosFor(url)
-GET     /bluebox/search         controllers.Application.queryMementos()
-POST    /bluebox/search         controllers.Application.findMementos()
-# Previous API - /bluebox/search.jsf?url=
-GET     /bluebox/search.jsf     controllers.Application.findMementosRedirect(url)
+GET     /bluebox-beta/               controllers.Application.index()
+GET     /bluebox-beta/search/*url    controllers.Application.findMementosFor(url)
+GET     /bluebox-beta/search         controllers.Application.queryMementos()
+POST    /bluebox-beta/search         controllers.Application.findMementos()
+# Previous API - /bluebox-beta/search.jsf?url=
+GET     /bluebox-beta/search.jsf     controllers.Application.findMementosRedirect(url)
 
 # JSON versions
-GET     /bluebox/api/timegraph/*url     controllers.Application.apiTimeGraph(url)
+GET     /bluebox-beta/api/timegraph/*url     controllers.Application.apiTimeGraph(url)
 
 
 # Screenshots of URLs
-GET     /bluebox/api/screenshot/*url     controllers.Application.apiScreenshot(url)
+GET     /bluebox-beta/api/screenshot/*url     controllers.Application.apiScreenshot(url)
