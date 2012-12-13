@@ -36,7 +36,6 @@
             <ul class="nav">
               <li><a href="http://www.webarchive.org.uk/">Home</a></li>
               <li class="active"><a href="@routes.Application.index()">BlueBox</a></li>
-              <li><a href="https://github.com/ukwa/">GitHub</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -91,6 +90,7 @@
          <div class="span4" style="text-align: center;">
           <img src='@routes.Assets.at("/images/mementologo.png")' style="height: 30px; float: left;"/>
             @helper.inputText(searchForm("url"),'id -> "idQueryUrlTwo", '_label -> "", '_showConstraints -> false )
+            <input type="hidden" name="archive" value="this" />
          </div>
          <div class="span3" style="text-align: center;">
             <input type="submit" class="btn primary" value="Engage The TimeGate...">
@@ -104,6 +104,11 @@
       <tr>
         <th>URL</th><td><a href="@msb.getUrl()">@msb.getUrl()</a></td>
       </tr>
+      @if(! "".equals(msb.getArchive()) ) {
+      <tr>
+        <th>Archived By</th><td>@msb.getArchive() <a href="@routes.Application.findMementosFor(msb.getUrl())">(X)</a></td>
+      </tr>
+      }
       <tr>
         <th>Snapshots</th><td>@msb.getTotalCount() in @msb.getNumHosts() archive(s)</td>
       </tr>
@@ -111,7 +116,7 @@
         <th>Date Range</th><td><a href="@msb.getFirstMemento().getWaybackUrl()">@msb.getFirstMemento().getDateTime().getYear()</a> to <a href="@msb.getLastMemento().getWaybackUrl()">@msb.getLastMemento().getDateTime().getYear()</a> (@msb.getTimeSinceLastMemento())</td>
       </tr>
       <tr>
-        <th>Request Archive</th><td><a href="http://webcitation.org/archive?url=@msb.getUrl()">via WebCite&#153;</a></td>
+        <th>Request Archive</th><td><a href="http://www.webarchive.org.uk/ukwa/info/nominate?url=@msb.getUrl()">via the UK Web Archive</a>, <a href="http://webcitation.org/archive?url=@msb.getUrl()">via WebCite&#153;</a></td>
       </tr>
       </table>
       </div>
@@ -196,6 +201,14 @@ nv.addGraph(function() {
           .datum(testdata)
         .transition().duration(1200)
           .call(chart);
+      
+      chart.pie.dispatch.on('elementClick.link',function(e){
+        @if( "".equals(msb.getArchive()) ) {
+    	  window.location.href = '@routes.Application.findMementosFor(msb.getUrl())?archive='+e.label;
+        } else {
+      	  window.location.href = '@routes.Application.findMementosFor(msb.getUrl())';
+        }
+      });
 
     return chart;
 });
@@ -212,7 +225,7 @@ nv.addGraph(function() {
         @for(h <- msb.getHosts()) {
             <tr>
                 <td>
-            <img src='@routes.Assets.at("images/favicons/"+h+"/favicon.ico")'/>&#160;<a href="http://@h">@h</a>
+            <a href="@routes.Application.findMementosFor(msb.getUrl(),h)"><img src='@routes.Assets.at("images/favicons/"+h+"/favicon.ico")'/>&#160;@h</a>
                 </td>
                 <td>@msb.getHostCounts().get(h)</td>
             </tr>
@@ -263,7 +276,7 @@ function dateLegend(e) {
 	}
 
 
-d3.json('@routes.Application.apiTimeGraph(msb.getUrl())', function(data) {
+d3.json('@routes.Application.apiTimeGraph(msb.getUrl(),msb.getArchive())', function(data) {
 	
    nv.addGraph(function() {
      var chart = nv.models.multiBarChart()
@@ -301,9 +314,18 @@ d3.json('@routes.Application.apiTimeGraph(msb.getUrl())', function(data) {
      d3.select('#chart3 svg')
        .datum(data)
          .transition().duration(500).call(chart);
- 
+
+     chart.multibar.dispatch.on('elementClick.link',function(e){
+      @if( "".equals(msb.getArchive()) ) {
+    	  window.location.href = '@routes.Application.findMementosFor(msb.getUrl())?archive='+e.series.key;
+        } else {
+      	  window.location.href = '@routes.Application.findMementosFor(msb.getUrl())';
+        }
+     });
+
+     
      nv.utils.windowResize(chart.update);
- 
+
      return chart;
    });
    

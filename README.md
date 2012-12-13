@@ -8,7 +8,16 @@ Given a URL, the client uses one or more known TimeGates to look up all known ar
 To Do List
 ----------
 
+ * FIXME Add http:// if not supplied.
+ * FIXME Snapshot table CSS (next/prev/etc)
+ * FIXME Ensure UKWA can take a URL parameter for nominations, and link it in.
+ * FIXME Add a menu item to UKWA to link to BlueBox.
+ * Add archive column? collapse? mementos by host.
+ * No LIVE?
+ * TODO Use Future pattern for long calls to avoid AskTimeoutException (see on graphs failing to load. JS?).
+ * Shorten display of long URLs to avoid breaking the layout.
  * Add Help, esp. for the bookmarklet, as popovers (http://twitter.github.com/bootstrap/javascript.html#popovers)
+ * Add busy logos/warning while screenshots are loaded?
  * Add text that displays if there is no JavaScript?
  * Allow years to be selected, in turn filtering the list of Mementos to show a year-long graph etc.
  * Add a lots-of-screenshots timeline.

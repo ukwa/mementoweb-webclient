@@ -31,6 +31,8 @@ public class MementoSearchBean implements Serializable {
 	private MementoClient mc = new MementoClient();
 	
 	private String url = "http://";
+	
+	private String archive = "";	
 
 	private ArrayList<MementoBean> mementos;
 	
@@ -40,7 +42,7 @@ public class MementoSearchBean implements Serializable {
 
 	private int totalCount;
 
-	private MementoList mementoList;
+	//private MementoList mementoList;
 	
 	/**
 	 * @return the url
@@ -50,9 +52,31 @@ public class MementoSearchBean implements Serializable {
 	}
 
 	/**
+	 * 
+	 * @return
+	 */
+	public String getArchive() {
+		return archive;
+	}
+	
+	/**
+	 * 
+	 * @param url
+	 * @param archive
+	 */
+	public void setUrlAndArchive(String url, String archive) {
+		this.archive = archive;
+		this.setUrl(url);
+	}
+
+
+	/**
 	 * @param url the url to set
 	 */
-	public void setUrl(String url) {
+	private void setUrl(String url) {
+		if( url != null && !"".equals(url) && !url.matches("^https?://.*$")) {
+			url = "http://"+url;
+		}
 		this.url = url;
 		this.doSearch();
 	}
@@ -97,8 +121,8 @@ public class MementoSearchBean implements Serializable {
 	 * @return
 	 */
 	public MementoBean getFirstMemento() {
-		if( this.mementoList != null ) {
-			return new MementoBean( this.mementoList.getFirst() );
+		if( this.mementos != null ) {
+			return this.mementos.get(0);
 		}
 		return null;
 	}
@@ -107,8 +131,8 @@ public class MementoSearchBean implements Serializable {
 	 * @return
 	 */
 	public MementoBean getLastMemento() {
-		if( this.mementoList != null ) {
-			return new MementoBean( this.mementoList.getLast() );
+		if( this.mementos != null ) {
+			return this.mementos.get( this.mementos.size() - 1 );
 		}
 		return null;
 	}
@@ -118,8 +142,8 @@ public class MementoSearchBean implements Serializable {
 	 * @return
 	 */
     public MementoBean getMidpointMemento() {
-		if( this.mementoList != null ) {
-			return new MementoBean( this.mementoList.get( this.mementoList.size()/2 ) );
+		if( this.mementos != null ) {
+			return mementos.get( this.mementos.size()/2 );
 		}
 		return null;
     }
@@ -146,17 +170,19 @@ public class MementoSearchBean implements Serializable {
     	// Get results:
     	if( mc.getMementos() != null ) {
     		//mc.getMementos().displayAll();
-    		this.mementoList = mc.getMementos();
-    		for( Memento m : this.mementoList ) {
+    		for( Memento m : mc.getMementos() ) {
     			MementoBean mb = new MementoBean(m);
-    			this.mementos.add( mb );
-    			// Count archival copies:
     			String host = mb.getArchiveHost();
-    			if( host != null ) {
-    				int count = hostCount.containsKey(host) ? hostCount.get(host) : 0;
-    				hostCount.put(host, count + 1);
+    			// Strip out non-matching archives:
+    			if( "".equals(this.archive) || this.archive.equals(host)) {
+    				this.mementos.add( mb );
+    				// Count archival copies:
+    				if( host != null ) {
+    					int count = hostCount.containsKey(host) ? hostCount.get(host) : 0;
+    					hostCount.put(host, count + 1);
+    				}
+    				this.totalCount++;
     			}
-    			this.totalCount++;
     		}
     	}
     	this.hosts = new ArrayList<String>(hostCount.keySet());

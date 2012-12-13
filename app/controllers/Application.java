@@ -12,7 +12,6 @@ import play.libs.Json;
 import views.html.*;
 
 import models.Screenshot;
-import models.Task;
 import models.Query;
 import models.memento.MementoSearchBean;
 import models.memento.MementoQuery;
@@ -20,40 +19,18 @@ import models.memento.MementoTimeGraph;
 
 public class Application extends Controller {
 
-  static Form<Task> taskForm = form(Task.class);
+  // Timeout for caches - one hour, in seconds.
+  private static final int CACHE_TIMEOUT = 60*60;
 
  public static Result index() {
     return redirect(routes.Application.findMementos());
   }
   
-  public static Result tasks() {
-    return ok(
-      views.html.index.render(Task.all(), taskForm)
-    );
-  }
-  
-  public static Result newTask() {
-  Form<Task> filledForm = taskForm.bindFromRequest();
-  if(filledForm.hasErrors()) {
-    return badRequest(
-      views.html.index.render(Task.all(), filledForm)
-    );
-  } else {
-    Task.create(filledForm.get());
-    return redirect(routes.Application.tasks());  
-  }
-  }
-  
-  public static Result deleteTask(Long id) {
-  Task.delete(id);
-  return redirect(routes.Application.tasks());
-  }
-
   /**
    * Return Mementos as JSON:
    */
-  public static Result findMementosApi(String url) {
-    MementoQuery msb = doQuery(url);
+  public static Result findMementosApi(String url, String archive) {
+    MementoQuery msb = doQuery(url,archive);
     //
     if (request().accepts("text/html")) {
           return ok("html "+url+"\n"+msb+"\n");
@@ -80,22 +57,22 @@ public class Application extends Controller {
         );
     }
     Query q = urlParam.get();
-    return redirect(routes.Application.findMementosFor(q.url));
-//    return findMementosFor(q.url);
+    return redirect(routes.Application.findMementosFor(q.url,q.archive));
   }
 
   public static Result findMementosRedirect(String url) {
-	return redirect(routes.Application.findMementosFor(url));
+	return redirect(routes.Application.findMementosFor(url,""));
   }
   
-  public static Result findMementosFor(String url) {
-    MementoQuery msb = doQuery(url);
+  public static Result findMementosFor(String url, String archive) {
+    MementoQuery msb = doQuery(url, archive);
     // Check for warnings:
     if( msb.getErrorMessage() != null )
       flash("success", msb.getErrorMessage() );
     // Rebuild a Query object.
     Query q = new Query();
     q.url = url;
+    q.archive = "";
     return ok(
       views.html.search.render(msb, queryForm.fill(q))
     );
@@ -104,21 +81,33 @@ public class Application extends Controller {
   /**
    * 
    */
-  private static MementoQuery doQuery(String url) {
-    MementoQuery msb = (MementoQuery) Cache.get("Mementos."+url);
+  private static MementoQuery doQuery(String url, String archive) {
+	String queryId = "Mementos."+archive+"."+url;
+    MementoQuery msb = (MementoQuery) Cache.get(queryId);
     if( msb == null ) {
       msb = new MementoQuery();
-      msb.setUrl(url);
-      Cache.set("Mementos."+url, msb);
+      msb.setUrlAndArchive(url,archive);
+      Cache.set(queryId, msb, CACHE_TIMEOUT);
     }
     return msb;
   }
 
-  public static Result apiTimeGraph(String url) {
-    MementoQuery msb = doQuery(url);
+  /**
+   * 
+   * @param url
+   * @param archive
+   * @return
+   */
+  public static Result apiTimeGraph(String url, String archive) {
+    MementoQuery msb = doQuery(url, archive);
     return ok(Json.toJson(MementoTimeGraph.makeYearwiseData(msb)));
   }
   
+  /**
+   * 
+   * @param url
+   * @return
+   */
   public static Result apiScreenshot(String url) {
 	try {
 		Screenshot shot = (Screenshot) Cache.get("Screenshot."+url);
@@ -126,7 +115,7 @@ public class Application extends Controller {
 			Logger.debug("Taking screenshot of "+url);
 			shot = Screenshot.getThumbnailPNG(url);
 			Logger.debug("Taken screenshot of "+url);
-			Cache.set("Screenshot."+url, shot);
+			Cache.set("Screenshot."+url, shot, CACHE_TIMEOUT);
 		}
 		return ok(shot.screenshot).as("image/png");
 	} catch (Exception e) {

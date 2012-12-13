@@ -21,7 +21,7 @@ public class MementoQuery extends MementoSearchBean {
 	 * 
 	 */
 	private static final long serialVersionUID = -7116498827412293266L;
-
+	
 	public boolean isUrlSet() {
 		if( this.getUrl() == null ) return false;
 		if( "".equals(this.getUrl())) return false;
@@ -64,5 +64,4 @@ public class MementoQuery extends MementoSearchBean {
         }
         return result;
     }
-		
 }

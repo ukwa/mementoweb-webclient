@@ -1,17 +1,17 @@
-@(tasks: List[Task], taskForm: Form[Task])
+@@(tasks: List[Task], taskForm: Form[Task])
 
-@import helper._
+@@import helper._
 
-@main("Todo list") {
+@@main("Todo list") {
     
-    <h1>@tasks.size() task(s)</h1>
+    <h1>@@tasks.size() task(s)</h1>
     
     <ul>
-        @for(task <- tasks) {
+        @@for(task <- tasks) {
             <li>
-                @task.label
+                @@task.label
                 
-                @form(routes.Application.deleteTask(task.id)) {
+                @@form(routes.Application.deleteTask(task.id)) {
                     <input type="submit" value="Delete">
                 }
             </li>
@@ -20,9 +20,9 @@
     
     <h2>Add a new task</h2>
     
-    @form(routes.Application.newTask()) {
+    @@form(routes.Application.newTask()) {
         
-        @inputText(taskForm("label")) 
+        @@inputText(taskForm("label")) 
         
         <input type="submit" value="Create">
         
