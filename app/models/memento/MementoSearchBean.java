@@ -42,6 +42,8 @@ public class MementoSearchBean implements Serializable {
 
 	private int totalCount;
 
+	private String errorMessage = null;
+
 	//private MementoList mementoList;
 	
 	/**
@@ -186,13 +188,27 @@ public class MementoSearchBean implements Serializable {
     		}
     	}
     	this.hosts = new ArrayList<String>(hostCount.keySet());
+    	// Add an error if there were no matches:
+    	this.setErrorMessage(null);
+		if( this.getMementos() == null || this.getMementos().size() == 0 ) {
+			this.setErrorMessage("No Mementos matched your query.");
+		}
+    	
     }
 	
 	/**
 	 * @return the errorMessage
 	 */
 	public String getErrorMessage() {
+		if( this.errorMessage != null ) return this.errorMessage;
 		return mc.getErrorMessage();
+	}
+	
+	/**
+	 * @param errorMessage
+	 */
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 	}
 
 }

@@ -44,8 +44,16 @@ public class MementoQuery extends MementoSearchBean {
 		for( String host : hc.keySet() ) {
 			val += "{ label: \""+host+"\", value: "+hc.get(host)+" },";
 		}
-		return val;
-		
+		return val;		
+	}
+	
+	public Map<String,String> getHostSelection() {
+        Map<String, String> result = new LinkedHashMap<String, String>();
+        result.put("","Any");
+        for( String h : this.getHosts() ) {
+        	result.put(h, h);
+        }
+        return result;
 	}
 	
 	private static Map<String, Integer> sortByValue(Map<String, Integer> map) {

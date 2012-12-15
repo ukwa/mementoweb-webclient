@@ -53,6 +53,7 @@
         </div>
           <div class="span3" style="text-align: center;">
             @helper.inputText(searchForm("url"),'id -> "idQueryUrl", '_label -> "Enter URL:", '_showConstraints -> false )
+            <input type="hidden" name="archive" value="" />
           </div>
        </div>
       <div class="row">
@@ -90,7 +91,7 @@
          <div class="span4" style="text-align: center;">
           <img src='@routes.Assets.at("/images/mementologo.png")' style="height: 30px; float: left;"/>
             @helper.inputText(searchForm("url"),'id -> "idQueryUrlTwo", '_label -> "", '_showConstraints -> false )
-            <input type="hidden" name="archive" value="this" />
+            <input type="hidden" name="archive" value="" />
          </div>
          <div class="span3" style="text-align: center;">
             <input type="submit" class="btn primary" value="Engage The TimeGate...">
@@ -104,11 +105,15 @@
       <tr>
         <th>URL</th><td><a href="@msb.getUrl()">@msb.getUrl()</a></td>
       </tr>
-      @if(! "".equals(msb.getArchive()) ) {
       <tr>
-        <th>Archived By</th><td>@msb.getArchive() <a href="@routes.Application.findMementosFor(msb.getUrl())">(X)</a></td>
+        <th>Archived By</th><td>
+        @helper.form(action = routes.Application.findMementos(), 'id -> "searchForm", 'class -> "form-horizontal form-inline" ) {
+            @helper.select(searchForm("archive"), helper.options(msb.getHostSelection()), '_label -> "", '_showConstraints -> false )
+            <input type="hidden" name="url" value="@msb.getUrl()" />
+            <input type="submit" class="btn primary" value="Filter">
+		}        
+        </td>
       </tr>
-      }
       <tr>
         <th>Snapshots</th><td>@msb.getTotalCount() in @msb.getNumHosts() archive(s)</td>
       </tr>
