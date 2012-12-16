@@ -14,7 +14,9 @@ UKWA
 
  * FIXME Snapshot table CSS (next/prev/etc)
  * FIXME Clean up archive selection code. Perhaps remove it.
- * No LIVE?
+
+ * TODO No LIVE?
+ * TODO Fix caching so that pre-filtered results are cached instead?
  * TODO Use Future pattern for long calls to avoid AskTimeoutException (see on graphs failing to load. JS?).
  * Shorten display of long URLs to avoid breaking the layout.
  * Add Help, esp. for the bookmarklet, as popovers (http://twitter.github.com/bootstrap/javascript.html#popovers)

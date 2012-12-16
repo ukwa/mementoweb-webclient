@@ -9,7 +9,7 @@ object ApplicationBuild extends Build {
 
     val appDependencies = Seq(
       // Add your project dependencies here,
-      "uk.bl.wap.memento" % "mementoweb-java-client" % "1.0.0-SNAPSHOT"
+      "uk.bl.wap.memento" % "mementoweb-java-client" % "1.1.2-SNAPSHOT"
       //,
       //"org.archive.heritrix" % "heritrix-commons" % "3.1.0"
     )

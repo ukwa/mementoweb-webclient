@@ -10,21 +10,22 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.joda.time.Instant;
-import org.joda.time.Interval;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
 import org.joda.time.format.PeriodFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import dev.memento.Memento;
 import dev.memento.MementoClient;
-import dev.memento.MementoList;
-import dev.memento.SimpleDateTime;
 
 /**
  * @author Andrew Jackson <Andrew.Jackson@bl.uk>
  *
  */
 public class MementoSearchBean implements Serializable {
+
+	private static Logger logger = LoggerFactory.getLogger(MementoSearchBean.class);
 	
 	private static final long serialVersionUID = -8531283933701096508L;
 	
@@ -159,6 +160,8 @@ public class MementoSearchBean implements Serializable {
 	/**
 	 */
 	private void doSearch() {
+		// Set TimeGate:
+		mc.setTimegateUri("http://www.webarchive.org.uk/wayback/memento/timegate/");
 		// Query:
     	mc.setTargetURI(this.getUrl());
     	// Get results:
@@ -167,12 +170,14 @@ public class MementoSearchBean implements Serializable {
     	this.totalCount = 0;
     	// Look for error:
     	if( mc.getErrorMessage() != null ) {
+    		logger.error("Got Error: "+mc.getErrorMessage());
     		return;
     	}
     	// Get results:
     	if( mc.getMementos() != null ) {
     		//mc.getMementos().displayAll();
     		for( Memento m : mc.getMementos() ) {
+    			logger.debug("Checking Memento:"+m.getUrl()+" "+m.getDateTimeString());
     			MementoBean mb = new MementoBean(m);
     			String host = mb.getArchiveHost();
     			// Strip out non-matching archives:
@@ -189,7 +194,6 @@ public class MementoSearchBean implements Serializable {
     	}
     	this.hosts = new ArrayList<String>(hostCount.keySet());
     	// Add an error if there were no matches:
-    	this.setErrorMessage(null);
 		if( this.getMementos() == null || this.getMementos().size() == 0 ) {
 			this.setErrorMessage("No Mementos matched your query.");
 		}

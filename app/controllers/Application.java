@@ -83,8 +83,10 @@ public class Application extends Controller {
    */
   private static MementoQuery doQuery(String url, String archive) {
 	String queryId = "Mementos."+archive+"."+url;
+	Logger.debug("Query: "+queryId);
     MementoQuery msb = (MementoQuery) Cache.get(queryId);
     if( msb == null ) {
+      Logger.debug("Cache miss, querying timegate: "+queryId);
       msb = new MementoQuery();
       msb.setUrlAndArchive(url,archive);
       Cache.set(queryId, msb, CACHE_TIMEOUT);
