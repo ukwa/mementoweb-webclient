@@ -6,19 +6,19 @@
 GET     /                       controllers.Application.index()
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /bluebox-beta/assets/*file   controllers.Assets.at(path="/public", file)
+GET     /w3ab/assets/*file   controllers.Assets.at(path="/public", file)
 
 # URL Lookup
-GET     /bluebox-beta/               controllers.Application.index()
-GET     /bluebox-beta/search/*url    controllers.Application.findMementosFor(url, archive?="")
-GET     /bluebox-beta/search         controllers.Application.queryMementos()
-POST    /bluebox-beta/search         controllers.Application.findMementos()
-# Previous API - /bluebox-beta/search.jsf?url=
-GET     /bluebox-beta/search.jsf     controllers.Application.findMementosRedirect(url)
+GET     /w3ab/               controllers.Application.index()
+GET     /w3ab/search/*url    controllers.Application.findMementosFor(url, archive?="")
+GET     /w3ab/search         controllers.Application.queryMementos()
+POST    /w3ab/search         controllers.Application.findMementos()
+# Previous API - /w3ab/search.jsf?url=
+GET     /w3ab/search.jsf     controllers.Application.findMementosRedirect(url)
 
 # JSON versions
-GET     /bluebox-beta/api/timegraph/*url     controllers.Application.apiTimeGraph(url, archive?="")
+GET     /w3ab/api/timegraph/*url     controllers.Application.apiTimeGraph(url, archive?="")
 
 
 # Screenshots of URLs
-GET     /bluebox-beta/api/screenshot/*url     controllers.Application.apiScreenshot(url)
+GET     /w3ab/api/screenshot/*url     controllers.Application.apiScreenshot(url)

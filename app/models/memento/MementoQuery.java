@@ -33,6 +33,13 @@ public class MementoQuery extends MementoSearchBean {
 		if( this.getErrorMessage() != null ) return false;
 		return true;
 	}
+	
+	public String getShortUrl() {
+		String shorter = this.getUrl();
+		if( shorter == null || shorter.length() < 40 ) return shorter;
+		shorter = shorter.substring(0, 20) + "..." + shorter.substring(shorter.length()-20);
+		return shorter;
+	}
 
 	/**
 	 * @return
@@ -48,7 +55,7 @@ public class MementoQuery extends MementoSearchBean {
 	
 	public Map<String,String> getHostSelection() {
         Map<String, String> result = new LinkedHashMap<String, String>();
-        result.put("","Any");
+        result.put("","All Web Archives");
         for( String h : this.getHosts() ) {
         	result.put(h, h);
         }

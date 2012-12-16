@@ -1,9 +1,9 @@
-Memento Web Client
-==================
+World Wide Web Archives Browser (Codename BlueBox)
+==================================================
 
-This is a very simple web client that exposes web archive holdings via the Memento protocol.
+This is a simple web client that exposes web archive holdings via the Memento protocol.
 
-Given a URL, the client uses one or more known TimeGates to look up all known archival holdings, them summarises them and provides links.
+Given a URL, the client uses one or more known TimeGates to look up all known archival holdings, them summarizes them and provides links.
 
 To Do List
 ----------
@@ -12,17 +12,13 @@ UKWA
  * FIXME Add a menu item to UKWA to link to BlueBox.
  * FIXME Also release updated UKWA with url parameter fix.
 
- * FIXME Snapshot table CSS (next/prev/etc)
- * FIXME Clean up archive selection code. Perhaps remove it.
-
- * TODO No LIVE?
- * TODO Fix caching so that pre-filtered results are cached instead?
- * TODO Use Future pattern for long calls to avoid AskTimeoutException (see on graphs failing to load. JS?).
- * Shorten display of long URLs to avoid breaking the layout.
- * Add Help, esp. for the bookmarklet, as popovers (http://twitter.github.com/bootstrap/javascript.html#popovers)
  * Add busy logos/warning while screenshots are loaded?
+ * Add Help, esp. for the bookmarklet, as popovers (http://twitter.github.com/bootstrap/javascript.html#popovers)
  * Add text that displays if there is no JavaScript?
-
+ * No LIVE?
+ * Fix caching so that pre-filtered results are cached instead?
+ * Use Future pattern for long calls to avoid AskTimeoutException (see on graphs failing to load. JS?).
+ 
  * Allow years to be selected, in turn filtering the list of Mementos to show a year-long graph etc.
  * Add a lots-of-screenshots timeline.
  * Use timeline screenshots to estimate degree of change over time (e.g. even just colour changes).

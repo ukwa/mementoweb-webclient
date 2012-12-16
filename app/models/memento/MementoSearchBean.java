@@ -161,7 +161,7 @@ public class MementoSearchBean implements Serializable {
 	 */
 	private void doSearch() {
 		// Set TimeGate:
-		mc.setTimegateUri("http://www.webarchive.org.uk/wayback/memento/timegate/");
+		//mc.setTimegateUri("http://www.webarchive.org.uk/wayback/memento/timegate/");
 		// Query:
     	mc.setTargetURI(this.getUrl());
     	// Get results:
