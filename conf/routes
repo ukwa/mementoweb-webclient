@@ -6,21 +6,21 @@
 GET     /                       controllers.Application.index()
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /w3ab/assets/*file   controllers.Assets.at(path="/public", file)
+GET     /mementos/assets/*file   controllers.Assets.at(path="/public", file)
 
 # URL Lookup
-GET     /w3ab/               controllers.Application.index()
-GET     /w3ab/search/*url    controllers.Application.findMementosFor(url, archive?="")
-GET     /w3ab/search         controllers.Application.queryMementos()
-POST    /w3ab/search         controllers.Application.findMementos()
+GET     /mementos/               controllers.Application.index()
+GET     /mementos/search/*url    controllers.Application.findMementosFor(url, archive?="")
+GET     /mementos/search         controllers.Application.queryMementos()
+POST    /mementos/search         controllers.Application.findMementos()
 
 # Previous API - /bluebox/search.jsf?url=
 GET     /bluebox/search.jsf     controllers.Application.findMementosRedirect(url)
 
 
 # JSON versions
-GET     /w3ab/api/timegraph/*url     controllers.Application.apiTimeGraph(url, archive?="")
+GET     /mementos/api/timegraph/*url     controllers.Application.apiTimeGraph(url, archive?="")
 
 
 # Screenshots of URLs
-GET     /w3ab/api/screenshot/*url     controllers.Application.apiScreenshot(url)
+GET     /mementos/api/screenshot/*url     controllers.Application.apiScreenshot(url)
