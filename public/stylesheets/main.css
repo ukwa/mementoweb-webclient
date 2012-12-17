@@ -22,9 +22,7 @@ text {
   display: inline-block;
 }
 #idQueryUrl {
-}
-#idQueryUrl_field label {
-    display: none;
+	width: 100%
 }
 #idQueryUrl_field input {
     margin-top: 20px;

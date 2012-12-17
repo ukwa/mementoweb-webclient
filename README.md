@@ -13,7 +13,6 @@ UKWA
  * FIXME Also release updated UKWA with url parameter fix.
 
  * Add busy logos/warning while screenshots are loaded?
- * Add Help, esp. for the bookmarklet, as popovers (http://twitter.github.com/bootstrap/javascript.html#popovers)
  * Add text that displays if there is no JavaScript?
  * No LIVE?
  * Fix caching so that pre-filtered results are cached instead?
