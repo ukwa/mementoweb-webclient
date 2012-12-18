@@ -13,7 +13,6 @@ import views.html.*;
 
 import models.Screenshot;
 import models.Query;
-import models.memento.MementoSearchBean;
 import models.memento.MementoQuery;
 import models.memento.MementoTimeGraph;
 

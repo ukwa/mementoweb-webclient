@@ -65,7 +65,7 @@
           <div class="span12" style="text-align: center; margin: 1em;">
             <input type="submit" class="btn btn-large primary" value="Find Mementos..." title="Engage The TimeGate...">
           </div>
-      <div>
+      </div>
       <div class="row">      
           <div class="span12" style="text-align: center;">
             @if(searchForm.hasGlobalErrors) { 
@@ -83,6 +83,20 @@
         </div>
       </div>
       }
+      
+    <div class="row">
+    <div class="span8 offset2">
+    <div class="alert alert-info">
+     <h4>Installing the bookmarklet...</h4>
+     <p>To install the Memento look-up service in your browser, drag this link to your bookmarks bar:</p>
+     <p style="text-align: center;">
+       <a href="javascript:void(location.href='http://www.webarchive.org.uk@routes.Application.findMementosFor("")'+escape(location.href)+'?referrer='+escape(document.referrer))">Find Mementos</a>
+     </p>
+     <p>Then, while browsing, if you hit a 404 Not Found error, or are just interested in knowing the archival history of your current web page, you can click the bookmarklet and you will go directly to the Mementos service results for that URL.</p>
+    </div>
+    </div>
+    </div>
+      
       }
 
       
@@ -443,34 +457,19 @@ d3.json('@routes.Application.apiTimeGraph(msb.getUrl(),msb.getArchive())', funct
     </div>
     </div>
     
-    }
-
     <div class="row">
     <div class="span12" style="text-align: center;margin: 1em;">
      <p>
-      Bookmarklet:&#160;<a href="javascript:void(location.href='http://www.webarchive.org.uk@routes.Application.findMementosFor("")'+escape(location.href)+'?referrer='+escape(document.referrer))">Find Mementos</a> (<a href="#bookmarkletModal" role="button" data-toggle="modal">click for help</a>).
-     </p>
-     
-     <div id="bookmarkletModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="bookmarkletModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="bookmarkletModalLabel">Installing the bookmarklet...</h3>
-  </div>
-  <div class="modal-body">
-    <p>To install the Memento look-up service in your browser, drag this link to your bookmarks bar:</p>
-    <p><a href="javascript:void(location.href='http://www.webarchive.org.uk@routes.Application.findMementosFor("")'+escape(location.href)+'?referrer='+escape(document.referrer))">Find Mementos</a></p>
-    <p>Then, while browsing, if you hit a 404 Not Found error, or are just interested in knowing the archival history of your current web page, you can click the bookmarklet and you will go directly to the Mementos service results for that URL.</p>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-  </div>
-</div>
-     
+      Bookmarklet:&#160;<a href="javascript:void(location.href='http://www.webarchive.org.uk@routes.Application.findMementosFor("")'+escape(location.href)+'?referrer='+escape(document.referrer))">Find Mementos</a>.
+     </p>     
     </div>
     </div>
-    
+
+    }
+
+     
     <div class="row">
-    <div class="span12" style="text-align: center;">
+    <div class="span8 offset2">
      <div class="well">
      <p>
      For more information, see&#160;<a href="http://www.webarchive.org.uk/ukwa/info/mementos">the Mementos homepage</a>.<br/>
@@ -481,9 +480,6 @@ d3.json('@routes.Application.apiTimeGraph(msb.getUrl(),msb.getArchive())', funct
      </p>
      </div>
     </div>    
-    </div>
-    
-    </div>
     </div>
     
     </div>
