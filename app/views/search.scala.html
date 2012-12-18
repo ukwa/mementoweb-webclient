@@ -221,7 +221,9 @@ nv.addGraph(function() {
           .datum(testdata)
         .transition().duration(1200)
           .call(chart);
-      
+
+      nv.utils.windowResize(chart.update);
+
       chart.pie.dispatch.on('elementClick.link',function(e){
         @if( "".equals(msb.getArchive()) ) {
     	  window.location.href = '@routes.Application.findMementosFor(msb.getUrl())?archive='+e.label;
