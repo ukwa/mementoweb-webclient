@@ -6,9 +6,9 @@
 <html>
     <head>
       @if(msb.isUrlSet()) {
-        <title>Mementos - Archived History of @msb.getUrl()</title>
+        <title>Mementos - Archived history of @msb.getUrl()</title>
       } else {
-        <title>Mementos - World Wide Web Archives Browser</title>
+        <title>Mementos - Finding historical archives across the world wide web.</title>
       }
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	    <meta name="description" content="Mementos - World Web Web Archives Browser"/>
@@ -459,7 +459,7 @@ d3.json('@routes.Application.apiTimeGraph(msb.getUrl(),msb.getArchive())', funct
   <div class="modal-body">
     <p>To install the Memento look-up service in your browser, drag this link to your bookmarks bar:</p>
     <p><a href="javascript:void(location.href='http://www.webarchive.org.uk@routes.Application.findMementosFor("")'+escape(location.href)+'?referrer='+escape(document.referrer))">Find Mementos</a></p>
-    <p>Then, while browsing, if you hit a 404 Not Found error, or are just interesting in knowing the archival history of your current web page, you can click the bookmarklet and you will go directly to the Mementos service results for the URL you were looking at.</p>
+    <p>Then, while browsing, if you hit a 404 Not Found error, or are just interested in knowing the archival history of your current web page, you can click the bookmarklet and you will go directly to the Mementos service results for that URL.</p>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
@@ -473,8 +473,7 @@ d3.json('@routes.Application.apiTimeGraph(msb.getUrl(),msb.getArchive())', funct
     <div class="span12" style="text-align: center;">
      <div class="well">
      <p>
-     For more information, see &#160;<a href="http://www.webarchive.org.uk/ukwa/info/links">the UK Web Archive Mementos page</a>.<br/>
-     The source code for this interface is&#160;<a href="https://github.com/ukwa/mementoweb-webclient">hosted on GitHub</a>.
+     For more information, see &#160;<a href="http://www.webarchive.org.uk/ukwa/info/mementos">the Mementos homepage</a>.<br/>
      </p>
      <p>
      This web interface uses the Memento aggregate TimeGate hosted by&#160;<a href="http://lanl.gov">lanl.gov</a>.<br/>
