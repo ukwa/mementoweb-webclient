@@ -90,7 +90,7 @@
      <h4>Installing the bookmarklet...</h4>
      <p>To install the Memento look-up service in your browser, drag this link to your bookmarks bar:</p>
      <p style="text-align: center;">
-       <a href="javascript:void(location.href='http://www.webarchive.org.uk@routes.Application.findMementosFor("")'+escape(location.href)+'?referrer='+escape(document.referrer))">Find Mementos</a>
+       <a href="javascript:void(location.href='http://www.webarchive.org.uk/mementos/search/'+escape(location.href)+'?referrer='+escape(document.referrer))">Find Mementos</a>
      </p>
      <p>Then, while browsing, if you hit a 404 Not Found error, or are just interested in knowing the archival history of your current web page, you can click the bookmarklet and you will go directly to the Mementos service results for that URL.</p>
     </div>
@@ -462,7 +462,7 @@ d3.json('@routes.Application.apiTimeGraph(msb.getUrl(),msb.getArchive())', funct
     <div class="row">
     <div class="span12" style="text-align: center;margin: 1em;">
      <p>
-      Bookmarklet:&#160;<a href="javascript:void(location.href='http://www.webarchive.org.uk@routes.Application.findMementosFor("")'+escape(location.href)+'?referrer='+escape(document.referrer))">Find Mementos</a>.
+      Bookmarklet:&#160;<a href="javascript:void(location.href='http://www.webarchive.org.uk/mementos/search/'+escape(location.href)+'?referrer='+escape(document.referrer))">Find Mementos</a>.
      </p>     
     </div>
     </div>
@@ -483,8 +483,22 @@ d3.json('@routes.Application.apiTimeGraph(msb.getUrl(),msb.getArchive())', funct
      </div>
     </div>    
     </div>
-    
     </div>
+    
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-7571526-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+    
       
     </body>
 </html>
