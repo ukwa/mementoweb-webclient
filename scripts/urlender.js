@@ -20,6 +20,7 @@ if (phantom.args.length != 3 ) {
 
     // Track requests
     page.onResourceRequested = function (request) {
+        console.log("Requesting "+request.url);
         urlf.writeLine( request.url );
     };
 
@@ -28,10 +29,11 @@ if (phantom.args.length != 3 ) {
     output = phantom.args[2];
     page.viewportSize = { width: 800, height: 800 };
     // These parameters apply to .pdf
-    page.paperSize = { format: 'A4', orientation: 'portrait', margin: '1cm' };
+    //page.paperSize = { format: 'A4', orientation: 'portrait', margin: '1cm' };
     // page.zoomFactor = 
 
     // Start 
+    console.log("Opening...");
     page.open(address, function (status) {
         if (status !== 'success') {
             console.log('Unable to load the address!');

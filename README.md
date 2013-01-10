@@ -8,10 +8,8 @@ Given a URL, the client uses one or more known TimeGates to look up all known ar
 To Do List
 ----------
 
-UKWA
- * FIXME Add a menu item to UKWA to link to BlueBox.
- * FIXME Also release updated UKWA with url parameter fix.
-
+ * Make the urlender script more robust so it times out itself?
+    *  See http://code.google.com/p/phantomjs/issues/detail?id=184
  * Add busy logos/warning while screenshots are loaded?
  * Add text that displays if there is no JavaScript?
  * No LIVE?
