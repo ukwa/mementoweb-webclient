@@ -5,6 +5,14 @@ This is a simple web client that exposes web archive holdings via the Memento pr
 
 Given a URL, the client uses one or more known TimeGates to look up all known archival holdings, them summarizes them and provides links.
 
+To run it, use
+
+    play run
+
+or, if you are behind a proxy, specify the proxy server as follows:
+
+    play run -Dhttp.proxyHost=my.proxy.host -Dhttp.proxyPort=3127
+
 To Do List
 ----------
 
