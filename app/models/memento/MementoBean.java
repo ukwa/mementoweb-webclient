@@ -41,7 +41,7 @@ public class MementoBean {
 	public String getArchiveHost() {
 		try {
 			URL uri = new URL( m.getUrl() );
-			return getTopPrivateDomain(uri.getAuthority());
+			return getTopPrivateDomain(uri.getHost());
 		} catch (Exception e) {
 			System.err.println("Exception "+e+" when attempting to parse uri: "+m.getUrl());
 			return null;
