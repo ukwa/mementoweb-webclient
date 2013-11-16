@@ -1,20 +1,22 @@
 import sbt._
 import Keys._
-import PlayProject._
+import play.Project._
 
 object ApplicationBuild extends Build {
 
-    val appName         = "bluebox"
+    val appName         = "mementos-webclient"
     val appVersion      = "1.0.0-SNAPSHOT"
 
     val appDependencies = Seq(
+      javaCore,
+      cache,
       // Add your project dependencies here,
-      "uk.bl.wa.memento" % "mementoweb-client-java" % "1.1.3"
+      "uk.bl.wa.memento" % "mementoweb-client-java" % "1.1.4"
       //,
       //"org.archive.heritrix" % "heritrix-commons" % "3.1.0"
     )
 
-    val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).settings(
+val main = play.Project(appName, appVersion, appDependencies).settings(
       // Add your own project settings here
       //resolvers += "Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/.m2/repository"
       //,

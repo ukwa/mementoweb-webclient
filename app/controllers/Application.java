@@ -1,15 +1,10 @@
 package controllers;
 
-import java.io.IOException;
-import java.util.concurrent.TimeoutException;
-
 import play.*;
 import play.cache.Cache;
 import play.data.*;
 import play.mvc.*;
 import play.libs.Json;
-
-import views.html.*;
 
 import models.Screenshot;
 import models.Query;
@@ -40,7 +35,7 @@ public class Application extends Controller {
        }
   }
 
-  static Form<Query> queryForm = form(Query.class);
+  static Form<Query> queryForm = play.data.Form.form(Query.class);
 
   public static Result queryMementos() {
     return ok(

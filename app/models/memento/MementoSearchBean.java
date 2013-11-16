@@ -47,6 +47,14 @@ public class MementoSearchBean implements Serializable {
 
 	//private MementoList mementoList;
 	
+	public MementoSearchBean() {
+		// Show original timegate:
+		logger.info("Default TimeGate is: "+mc.getTimegateUri());
+		// Set TimeGate:
+		//mc.setTimegateUri("http://www.webarchive.org.uk/wayback/memento/timegate/");
+		logger.info("TimeGate is set to: "+mc.getTimegateUri());
+	}
+	
 	/**
 	 * @return the url
 	 */
@@ -160,8 +168,6 @@ public class MementoSearchBean implements Serializable {
 	/**
 	 */
 	private void doSearch() {
-		// Set TimeGate:
-		//mc.setTimegateUri("http://www.webarchive.org.uk/wayback/memento/timegate/");
 		// Query:
     	mc.setTargetURI(this.getUrl());
     	// Get results:
