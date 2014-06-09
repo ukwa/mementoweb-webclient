@@ -52,6 +52,7 @@ public class MementoSearchBean implements Serializable {
 		logger.info("Default TimeGate is: "+mc.getTimegateUri());
 		// Set TimeGate:
 		//mc.setTimegateUri("http://www.webarchive.org.uk/wayback/memento/timegate/");
+		mc.setTimegateUri("http://www.mementoweb.org/timegate/");
 		logger.info("TimeGate is set to: "+mc.getTimegateUri());
 	}
 	
