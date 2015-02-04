@@ -57,7 +57,10 @@
           <img src='@routes.Assets.at("images/mementologo.png")'/>
         </div>
           <div class="span4" style="text-align: center;">
-            @helper.inputText(searchForm("url"),'id -> "idQueryUrl", '_label -> "", '_help -> "Enter a URL, e.g. http://www.bl.uk", '_showConstraints -> true )
+            @helper.inputText(searchForm("url"),'id -> "idQueryUrl", '_label -> "", '_help -> "Enter a URL", '_showConstraints -> true )
+            <span class="help-block">
+  				e.g. <a href="@{routes.Application.findMementosFor("http://www.bl.uk")}">http://www.bl.uk</a>.
+            </span>
             <input type="hidden" name="archive" value="" />
           </div>
        </div>
@@ -133,7 +136,9 @@
         <th>Snapshots</th><td>@msb.getTotalCount() in @msb.getNumHosts() archive(s)</td>
       </tr>
       <tr>
+      @if( msb.getFirstMemento() != null ) {
         <th>Date Range</th><td><a href="@msb.getFirstMemento().getWaybackUrl()">@msb.getFirstMemento().getDateTime().getYear()</a> to <a href="@msb.getLastMemento().getWaybackUrl()">@msb.getLastMemento().getDateTime().getYear()</a> (@msb.getTimeSinceLastMemento())</td>
+      }
       </tr>
       <tr>
         <th>Request Archive</th><td><a href="http://www.webarchive.org.uk/ukwa/info/nominate?url=@msb.getUrl()">via the UK Web Archive</a>, <a href="http://webcitation.org/archive?url=@msb.getUrl()">via WebCite&#153;</a></td>
@@ -142,6 +147,7 @@
       </div>
 	  </div>
       
+      @if( msb.getFirstMemento() != null ) {
       <div class="row">
       <div class="span8">
       
@@ -178,6 +184,7 @@
       
       </div>
       </div>
+      }
 
 
 	</div>      

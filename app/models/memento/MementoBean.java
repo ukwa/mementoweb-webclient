@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
+import play.Logger;
+
 import com.google.common.net.InternetDomainName;
 
 import dev.memento.Memento;
@@ -41,9 +43,14 @@ public class MementoBean {
 	public String getArchiveHost() {
 		try {
 			URL uri = new URL( m.getUrl() );
-			return getTopPrivateDomain(uri.getHost());
+			try {
+				return getTopPrivateDomain(uri.getHost());
+			} catch (Exception e) {
+				Logger.debug("Exception "+e+" when attempting to determine private suffix: "+m.getUrl()+" - assuming whole host is the private suffix.");
+				return uri.getHost();
+			}		
 		} catch (Exception e) {
-			System.err.println("Exception "+e+" when attempting to parse uri: "+m.getUrl());
+			Logger.warn("Exception "+e+" when attempting to parse uri: "+m.getUrl()+".");
 			return null;
 		}		
 	}

@@ -5,9 +5,13 @@ package models.memento;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import org.joda.time.Instant;
 import org.joda.time.Period;
@@ -35,7 +39,7 @@ public class MementoSearchBean implements Serializable {
 	
 	private String archive = "";	
 
-	private ArrayList<MementoBean> mementos;
+	private TreeMap<Date,MementoBean> mementos;
 	
 	private HashMap<String,Integer> hostCount;
 
@@ -50,10 +54,12 @@ public class MementoSearchBean implements Serializable {
 	public MementoSearchBean() {
 		// Show original timegate:
 		logger.info("Default TimeGate is: "+mc.getTimegateUri());
-		// Set TimeGate:
-		//mc.setTimegateUri("http://www.webarchive.org.uk/wayback/memento/timegate/");
-		mc.setTimegateUri("http://www.mementoweb.org/timegate/");
-		logger.info("TimeGate is set to: "+mc.getTimegateUri());
+		// Override TimeGate:
+		String tg = play.Play.application().configuration().getString("memento.timegate");
+		if( tg != null ) {
+			mc.setTimegateUri(tg);
+			logger.info("TimeGate is set to: "+mc.getTimegateUri());
+		}
 	}
 	
 	/**
@@ -96,8 +102,8 @@ public class MementoSearchBean implements Serializable {
 	/**
 	 * @return
 	 */
-	public ArrayList<MementoBean> getMementos() {
-		return this.mementos;
+	public Collection<MementoBean> getMementos() {
+		return this.mementos.values();
 	}
 	
 	/**
@@ -134,7 +140,7 @@ public class MementoSearchBean implements Serializable {
 	 */
 	public MementoBean getFirstMemento() {
 		if( this.mementos != null ) {
-			return this.mementos.get(0);
+			return this.mementos.firstEntry().getValue();
 		}
 		return null;
 	}
@@ -144,7 +150,7 @@ public class MementoSearchBean implements Serializable {
 	 */
 	public MementoBean getLastMemento() {
 		if( this.mementos != null ) {
-			return this.mementos.get( this.mementos.size() - 1 );
+			return this.mementos.lastEntry().getValue();
 		}
 		return null;
 	}
@@ -155,7 +161,9 @@ public class MementoSearchBean implements Serializable {
 	 */
     public MementoBean getMidpointMemento() {
 		if( this.mementos != null ) {
-			return mementos.get( this.mementos.size()/2 );
+			Set<Date> dateSet = this.mementos.keySet();
+			List<Date> dateList = new ArrayList<Date>(new TreeSet<Date>(dateSet));
+			return this.mementos.get( dateList.get( dateList.size()/2 ) );
 		}
 		return null;
     }
@@ -172,7 +180,7 @@ public class MementoSearchBean implements Serializable {
 		// Query:
     	mc.setTargetURI(this.getUrl());
     	// Get results:
-    	this.mementos = new ArrayList<MementoBean>();
+    	this.mementos = new TreeMap<Date,MementoBean>();
     	this.hostCount = new HashMap<String,Integer>();
     	this.totalCount = 0;
     	// Look for error:
@@ -189,13 +197,15 @@ public class MementoSearchBean implements Serializable {
     			String host = mb.getArchiveHost();
     			// Strip out non-matching archives:
     			if( "".equals(this.archive) || this.archive.equals(host)) {
-    				this.mementos.add( mb );
+    				// Store it:
+    				this.mementos.put(mb.getDateTime().getDate(), mb );
     				// Count archival copies:
     				if( host != null ) {
     					int count = hostCount.containsKey(host) ? hostCount.get(host) : 0;
     					hostCount.put(host, count + 1);
     				}
     				this.totalCount++;
+    				// Get first and last
     			}
     		}
     	}
