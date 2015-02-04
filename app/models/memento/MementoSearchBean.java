@@ -33,8 +33,6 @@ public class MementoSearchBean implements Serializable {
 	
 	private static final long serialVersionUID = -8531283933701096508L;
 	
-	private MementoClient mc = new MementoClient();
-	
 	private String url = "http://";
 	
 	private String archive = "";	
@@ -49,17 +47,25 @@ public class MementoSearchBean implements Serializable {
 
 	private String errorMessage = null;
 
+	private String timegate;
+
 	//private MementoList mementoList;
 	
 	public MementoSearchBean() {
+		// Configured TimeGate:
+		timegate = play.Play.application().configuration().getString("memento.timegate");
+	}
+	
+	private MementoClient getMementoClient() {
+		MementoClient mc = new MementoClient();
 		// Show original timegate:
 		logger.info("Default TimeGate is: "+mc.getTimegateUri());
 		// Override TimeGate:
-		String tg = play.Play.application().configuration().getString("memento.timegate");
-		if( tg != null ) {
-			mc.setTimegateUri(tg);
-			logger.info("TimeGate is set to: "+mc.getTimegateUri());
+		if( timegate != null ) {
+			mc.setTimegateUri(timegate);
+			logger.info("TimeGate is now set to: "+mc.getTimegateUri());
 		}
+		return mc;
 	}
 	
 	/**
@@ -177,6 +183,8 @@ public class MementoSearchBean implements Serializable {
 	/**
 	 */
 	private void doSearch() {
+		MementoClient mc = this.getMementoClient();
+		this.setErrorMessage(null);
 		// Query:
     	mc.setTargetURI(this.getUrl());
     	// Get results:
@@ -186,6 +194,7 @@ public class MementoSearchBean implements Serializable {
     	// Look for error:
     	if( mc.getErrorMessage() != null ) {
     		logger.error("Got Error: "+mc.getErrorMessage());
+    		this.setErrorMessage(mc.getErrorMessage());
     		return;
     	}
     	// Get results:
@@ -221,8 +230,7 @@ public class MementoSearchBean implements Serializable {
 	 * @return the errorMessage
 	 */
 	public String getErrorMessage() {
-		if( this.errorMessage != null ) return this.errorMessage;
-		return mc.getErrorMessage();
+		return this.errorMessage;
 	}
 	
 	/**

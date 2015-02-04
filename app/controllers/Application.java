@@ -83,7 +83,10 @@ public class Application extends Controller {
       Logger.debug("Cache miss, querying timegate: "+queryId);
       msb = new MementoQuery();
       msb.setUrlAndArchive(url,archive);
-      Cache.set(queryId, msb, CACHE_TIMEOUT);
+      // Only cache if it worked:
+      if( msb.hasValidResults()) {
+    	  Cache.set(queryId, msb, CACHE_TIMEOUT);
+      }
     }
     return msb;
   }
