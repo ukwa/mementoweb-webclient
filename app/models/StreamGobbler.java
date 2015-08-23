@@ -53,9 +53,9 @@ class StreamGobbler
             String line = null;
             while ((line = bufferedReader.readLine()) != null)
             {
-                if (displayStreamOutput)
+                if (log.isDebugEnabled() || displayStreamOutput)
                 {
-                    log.info(streamType + ">" + line);
+                    log.debug(streamType + ">" + line);
                 }
             }
         }

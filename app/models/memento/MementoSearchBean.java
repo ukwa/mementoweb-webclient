@@ -20,8 +20,10 @@ import org.joda.time.format.PeriodFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.bl.wa.memento.client.MementosAggregator;
 import dev.memento.Memento;
 import dev.memento.MementoClient;
+import dev.memento.MementoList;
 
 /**
  * @author Andrew Jackson <Andrew.Jackson@bl.uk>
@@ -56,8 +58,9 @@ public class MementoSearchBean implements Serializable {
 		timegate = play.Play.application().configuration().getString("memento.timegate");
 	}
 	
-	private MementoClient getMementoClient() {
-		MementoClient mc = new MementoClient();
+	private MementosAggregator getMementoClient() {
+		MementosAggregator mc = new MementosAggregator();
+		/*
 		// Show original timegate:
 		logger.info("Default TimeGate is: "+mc.getTimegateUri());
 		// Override TimeGate:
@@ -65,6 +68,7 @@ public class MementoSearchBean implements Serializable {
 			mc.setTimegateUri(timegate);
 			logger.info("TimeGate is now set to: "+mc.getTimegateUri());
 		}
+		*/
 		return mc;
 	}
 	
@@ -183,24 +187,32 @@ public class MementoSearchBean implements Serializable {
 	/**
 	 */
 	private void doSearch() {
-		MementoClient mc = this.getMementoClient();
+		MementosAggregator mc = this.getMementoClient();
 		this.setErrorMessage(null);
 		// Query:
-    	mc.setTargetURI(this.getUrl());
+		MementoList mementos = null;
+		try {
+			mementos = mc.lookup(this.getUrl());
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	// Get results:
     	this.mementos = new TreeMap<Date,MementoBean>();
     	this.hostCount = new HashMap<String,Integer>();
     	this.totalCount = 0;
     	// Look for error:
+    	/*
     	if( mc.getErrorMessage() != null ) {
     		logger.error("Got Error: "+mc.getErrorMessage());
     		this.setErrorMessage(mc.getErrorMessage());
     		return;
     	}
+    	*/
     	// Get results:
-    	if( mc.getMementos() != null ) {
+    	if( mementos != null ) {
     		//mc.getMementos().displayAll();
-    		for( Memento m : mc.getMementos() ) {
+    		for( Memento m : mementos ) {
     			logger.debug("Checking Memento:"+m.getUrl()+" "+m.getDateTimeString());
     			MementoBean mb = new MementoBean(m);
     			String host = mb.getArchiveHost();

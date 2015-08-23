@@ -1,5 +1,5 @@
-World Wide Web Archives Browser (Codename BlueBox)
-==================================================
+World Wide Web Archives Browser
+===============================
 
 This is a simple web client that exposes web archive holdings via the Memento protocol.
 
@@ -25,7 +25,7 @@ To Do List
  * Use Future pattern for long calls to avoid AskTimeoutException (see on graphs failing to load. JS?).
  
  * Allow years to be selected, in turn filtering the list of Mementos to show a year-long graph etc.
- * Add a lots-of-screenshots timeline.
+ * Add a lots-of-screenshots timeline. c.f. https://github.com/NUKnightLab/TimelineJS
  * Use timeline screenshots to estimate degree of change over time (e.g. even just colour changes).
  * Make screenshots cope better with none-HTML content?
 

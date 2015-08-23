@@ -15,6 +15,7 @@ import java.util.concurrent.TimeoutException;
 
 import javax.imageio.ImageIO;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,6 +50,7 @@ public class Screenshot {
 		};
 		logger.debug("PNG: "+png.getAbsolutePath());
 		int exitStatus = executeCommandLine(cmd, true, true, 90*1000);
+		logger.debug("exitStatus: "+exitStatus);
 		Screenshot shot = new Screenshot();
 		// Load PNG
 		byte[] data = new byte[(int) png.length()];
@@ -80,6 +82,8 @@ public class Screenshot {
 			final long timeout)
 					throws IOException, InterruptedException, TimeoutException
 					{
+		logger.debug("Running:"+StringUtils.join(commandLine," "));
+		
 		Runtime runtime = Runtime.getRuntime();
 		Process process = runtime.exec(commandLine);
 		/* Set up process I/O. */

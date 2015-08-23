@@ -3,10 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /                       controllers.Application.index()
-
-# Map static resources from the /public folder to the /assets URL path
-GET     /mementos/assets/*file   controllers.Assets.at(path="/public", file)
+#GET     /                       controllers.Application.index()
 
 # URL Lookup
 GET     /mementos/               controllers.Application.index()
@@ -24,3 +21,8 @@ GET     /mementos/api/timegraph/*url     controllers.Application.apiTimeGraph(ur
 
 # Screenshots of URLs
 GET     /mementos/api/screenshot/*url     controllers.Application.apiScreenshot(url)
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /mementos/assets/*file   controllers.Assets.at(path="/public", file)
+
