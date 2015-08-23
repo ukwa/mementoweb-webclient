@@ -11,7 +11,7 @@ object ApplicationBuild extends Build {
       javaCore,
       cache,
       // Add your project dependencies here,
-      "uk.bl.wa.memento" % "mementoweb-client-java" % "1.1.6-SNAPSHOT"
+      "uk.bl.wa.memento" % "mementoweb-client-java" % "1.1.6"
     )
 
 val main = play.Project(appName, appVersion, appDependencies).settings(
