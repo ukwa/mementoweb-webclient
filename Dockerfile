@@ -1,4 +1,4 @@
-FROM openjdk:8
+FROM openjdk:8 AS build-env
 
 ENV         ACTIVATOR_VERSION 1.3.11
 ARG         USER_HOME_DIR="/root"
@@ -34,5 +34,9 @@ EXPOSE 9000
 
 #VOLUME "$USER_HOME_DIR/.ivy2"
 
-CMD /mementos/target/universal/stage/bin/mementos-webclient -Dconfig.file=/mementos/conf/application.conf -Dpidfile.path=/dev/null
+FROM openjdk:8-jre
+
+COPY --from=build-env /mementos/target/universal/stage /mementos
+
+CMD /mementos/bin/mementos-webclient -Dconfig.file=/mementos/conf/application.conf -Dpidfile.path=/dev/null
 
